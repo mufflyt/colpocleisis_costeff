@@ -150,7 +150,8 @@ sensitivity_params <- tibble::tibble(
     "Pipelle biopsy inadequate sample rate",
     "Concurrent dilation and curettage incremental cost",
     "Dilation and curettage effective detection credit"
-  )
+  ),
+  format_type = c("pct", "dollar", "dollar", "pct", "dollar", "pct")
 )
 
 get_preferred_nmb <- function(param_name, param_value) {
@@ -174,6 +175,9 @@ for (idx in seq_len(nrow(sensitivity_params))) {
 
   tornado_rows[[idx]] <- tibble::tibble(
     parameter = p_label,
+    param_low_val = p_low,
+    param_high_val = p_high,
+    param_format = sensitivity_params$format_type[idx],
     nmb_low = nmb_low,
     nmb_high = nmb_high,
     spread = abs(nmb_high - nmb_low)
@@ -182,28 +186,44 @@ for (idx in seq_len(nrow(sensitivity_params))) {
 
 tornado_tbl <- dplyr::bind_rows(tornado_rows) |>
   dplyr::mutate(
-    parameter = forcats::fct_reorder(parameter, spread)
-  )
-
-# Reshape for plotting
-tornado_long <- tornado_tbl |>
-  tidyr::pivot_longer(
-    cols = c(nmb_low, nmb_high),
-    names_to = "bound",
-    values_to = "nmb"
+    parameter = forcats::fct_reorder(parameter, spread),
+    bar_left = pmin(nmb_low, nmb_high),
+    bar_right = pmax(nmb_low, nmb_high),
+    left_is_low = nmb_low <= nmb_high,
+    val_left = dplyr::if_else(left_is_low, param_low_val, param_high_val),
+    val_right = dplyr::if_else(left_is_low, param_high_val, param_low_val),
+    label_left = dplyr::case_when(
+      param_format == "dollar" ~ paste0("$", formatC(val_left, format = "f", digits = 0, big.mark = ",")),
+      param_format == "pct" ~ paste0(formatC(val_left * 100, format = "f", digits = 1), "%")
+    ),
+    label_right = dplyr::case_when(
+      param_format == "dollar" ~ paste0("$", formatC(val_right, format = "f", digits = 0, big.mark = ",")),
+      param_format == "pct" ~ paste0(formatC(val_right * 100, format = "f", digits = 1), "%")
+    )
   )
 
 fig2 <- ggplot2::ggplot(tornado_tbl) +
   ggplot2::geom_segment(
     ggplot2::aes(
       y = parameter, yend = parameter,
-      x = pmin(nmb_low, nmb_high),
-      xend = pmax(nmb_low, nmb_high)
+      x = bar_left,
+      xend = bar_right
     ),
     linewidth = 6, colour = "#4A90D9", alpha = 0.8
   ) +
+  ggplot2::geom_text(
+    ggplot2::aes(x = bar_left, y = parameter, label = label_left),
+    hjust = 1.1, size = 2.8, colour = "grey30"
+  ) +
+  ggplot2::geom_text(
+    ggplot2::aes(x = bar_right, y = parameter, label = label_right),
+    hjust = -0.1, size = 2.8, colour = "grey30"
+  ) +
   ggplot2::geom_vline(xintercept = base_nmb, linetype = "dashed", colour = "grey30") +
-  ggplot2::scale_x_continuous(labels = scales::dollar_format()) +
+  ggplot2::scale_x_continuous(
+    labels = scales::dollar_format(),
+    expand = ggplot2::expansion(mult = c(0.15, 0.15))
+  ) +
   ggplot2::labs(
     title = NULL,
     subtitle = NULL,
