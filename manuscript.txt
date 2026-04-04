@@ -1,0 +1,17 @@
+Cost-Effectiveness of Selective Preoperative Endometrial Evaluation Before LeFort Colpocleisis: A Threshold Decision Analysis
+
+Introduction
+
+LeFort colpocleisis effectively treats advanced prolapse but limits subsequent uterine evaluation. Concern for occult endometrial cancer motivates preoperative assessment, yet occult malignancy prevalence is low (0.22%-2.6%). Despite limited evidence, 68% of colpocleisis surgeons prefer preoperative endometrial evaluation, most commonly with transvaginal ultrasound. We conducted a threshold analysis to determine when selective preoperative evaluation becomes cost-effective.
+
+Methods
+
+We developed an expected-value decision model comparing four strategies in a hypothetical cohort of 10,000 women undergoing LeFort colpocleisis: (1) no routine testing, (2) selective transvaginal ultrasound (TVUS), (3) selective office Pipelle biopsy, and (4) selective concurrent dilation and curettage (D&C) performed at the time of surgery. Testing was applied selectively to a higher-risk subgroup (30% of the cohort). Base-case occult endometrial cancer prevalence was 0.56%. Test characteristics were derived from published diagnostic meta-analyses: TVUS sensitivity 94.1%, specificity 66.8%; Pipelle sensitivity 100% (conditional on adequate sample), specificity 98%, inadequate sample rate 29.1%; D&C sensitivity 88%, specificity 98.4%. Costs reflected Medicare reimbursement estimates. Concurrent D&C received partial QALY credit (50%) because results typically return after the obliterative procedure is completed, limiting intraoperative decision-making. Outcomes included total cost, quality-adjusted life-years (QALYs), incremental cost-effectiveness ratios, and net monetary benefit (NMB) at a willingness-to-pay threshold of $100,000/QALY. We performed efficiency-frontier analysis with removal of dominated strategies, one-way sensitivity analyses, and a threshold analysis varying cancer prevalence from 0.1% to 5%.
+
+Results
+
+At base-case prevalence (0.56%), no routine testing had the highest NMB and was the preferred strategy (Figure 1). Only no testing and selective TVUS remained on the efficiency frontier; selective Pipelle and concurrent D&C were dominated (higher cost, lower QALYs). The ICER for TVUS versus no testing was $186,054/QALY, exceeding the willingness-to-pay threshold. Sensitivity analysis (Figure 2) demonstrated that results were most sensitive to high-risk prevalence and delayed cancer diagnosis cost. Threshold analysis (Figure 3) revealed that selective TVUS becomes the preferred strategy when high-risk prevalence exceeds approximately 0.8%, a threshold achievable in women with postmenopausal bleeding, obesity, tamoxifen use, or Lynch syndrome.
+
+Conclusions
+
+Routine preoperative endometrial evaluation is not cost-effective before LeFort colpocleisis in low-risk, asymptomatic women. When testing is warranted based on clinical risk factors, selective TVUS is the only non-dominated strategy. Pipelle biopsy is disadvantaged by its high inadequate-sample rate and resultant follow-up costs. Concurrent D&C, while logistically convenient, provides limited decision-changing value because pathology results return after the obliterative procedure is completed. A risk-stratified approach reserving preoperative TVUS for women above an identifiable prevalence threshold optimizes resource use while maintaining diagnostic vigilance.
