@@ -42,17 +42,18 @@ theme_journal <- function() {
       panel.border = ggplot2::element_rect(fill = NA, colour = "grey70"),
       axis.ticks = ggplot2::element_line(colour = "grey70"),
       legend.position = "bottom",
-      plot.title = ggplot2::element_text(face = "bold", size = 12),
-      plot.subtitle = ggplot2::element_text(size = 9, colour = "grey40")
+      plot.title = ggplot2::element_text(face = "bold", size = 11),
+      plot.subtitle = ggplot2::element_text(size = 8, colour = "grey40", lineheight = 1.2),
+      plot.title.position = "plot"
     )
 }
 
 # Nice strategy labels
 strategy_labels <- c(
   "no_testing" = "No Testing",
-  "selective_tvus" = "Selective TVUS",
-  "selective_office_pipelle" = "Selective Pipelle",
-  "selective_concurrent_dnc" = "Selective Concurrent D&C"
+  "selective_tvus" = "Transvaginal Ultrasound",
+  "selective_office_pipelle" = "Office Pipelle Biopsy",
+  "selective_concurrent_dnc" = "Concurrent Dilation and Curettage"
 )
 
 # ============================================================
@@ -89,23 +90,32 @@ fig1 <- ggplot2::ggplot(plane_tbl, ggplot2::aes(x = total_cost, y = qaly_gained)
   ggplot2::geom_point(ggplot2::aes(colour = label), size = 3.5) +
   ggplot2::geom_text(
     ggplot2::aes(label = label),
-    vjust = -1, size = 3, check_overlap = FALSE
+    vjust = -1, hjust = 0.5, size = 2.8, check_overlap = FALSE
   ) +
-  ggplot2::scale_x_continuous(labels = scales::dollar_format()) +
+  ggplot2::scale_x_continuous(
+    labels = scales::dollar_format(),
+    expand = ggplot2::expansion(mult = c(0.05, 0.15))
+  ) +
   ggplot2::scale_colour_brewer(palette = "Set1", name = "Strategy") +
   ggplot2::labs(
-    title = "Cost-Effectiveness Plane",
-    subtitle = "Selective endometrial evaluation strategies before colpocleisis",
+    title = "Figure 1. Cost-Effectiveness Plane for Selective Endometrial\nEvaluation Strategies Before LeFort Colpocleisis",
+    subtitle = paste0(
+      "Each point represents one strategy plotted by total cost and quality-adjusted life-years gained\n",
+      "in a modeled cohort of 10,000 women. The dashed line connects the two non-dominated strategies\n",
+      "on the efficiency frontier. Selective office Pipelle biopsy and selective concurrent dilation and\n",
+      "curettage are dominated, having higher cost and fewer quality-adjusted life-years than selective\n",
+      "transvaginal ultrasound."
+    ),
     x = "Total Cost ($)",
-    y = "QALYs Gained"
+    y = "Quality-Adjusted Life-Years Gained"
   ) +
   theme_journal()
 
 ggplot2::ggsave(
-  file.path(output_path, "figure1_ce_plane.pdf"),
-  plot = fig1, width = 7, height = 5, device = "pdf"
+  file.path(output_path, "figure1_ce_plane.jpeg"),
+  plot = fig1, width = 9, height = 7, device = "jpeg", dpi = 300
 )
-base::message("  Saved figure1_ce_plane.pdf")
+base::message("  Saved figure1_ce_plane.jpeg")
 
 # ============================================================
 # Figure 2: Tornado diagram (one-way sensitivity analysis)
@@ -140,12 +150,12 @@ sensitivity_params <- tibble::tibble(
   low_val = c(0.0022, 10000, 72, 0.10, 400, 0.10),
   high_val = c(0.026, 50000, 250, 0.50, 1500, 0.90),
   display_label = c(
-    "High-risk prevalence",
-    "Delayed cancer cost",
-    "TVUS cost",
-    "Pipelle inadequate rate",
-    "Concurrent D&C incremental cost",
-    "D&C effective detection credit"
+    "High-risk cancer prevalence",
+    "Delayed cancer diagnosis cost",
+    "Transvaginal ultrasound cost",
+    "Pipelle biopsy inadequate sample rate",
+    "Concurrent dilation and curettage incremental cost",
+    "Dilation and curettage effective detection credit"
   )
 )
 
@@ -201,10 +211,13 @@ fig2 <- ggplot2::ggplot(tornado_tbl) +
   ggplot2::geom_vline(xintercept = base_nmb, linetype = "dashed", colour = "grey30") +
   ggplot2::scale_x_continuous(labels = scales::dollar_format()) +
   ggplot2::labs(
-    title = "One-Way Sensitivity Analysis",
+    title = "Figure 2. One-Way Sensitivity Analysis of Key Model Parameters",
     subtitle = paste0(
-      "Net monetary benefit for ", strategy_labels[preferred_strategy],
-      " (WTP = $100,000/QALY)"
+      "Each bar shows the range of net monetary benefit for the preferred strategy (",
+      strategy_labels[preferred_strategy],
+      ") when a single\nparameter is varied across its plausible range while all other parameters are held at base-case values.\n",
+      "The dashed vertical line marks the base-case net monetary benefit. High-risk cancer prevalence and\n",
+      "delayed cancer diagnosis cost have the greatest influence on model results."
     ),
     x = "Net Monetary Benefit ($)",
     y = NULL
@@ -213,10 +226,10 @@ fig2 <- ggplot2::ggplot(tornado_tbl) +
   ggplot2::theme(legend.position = "none")
 
 ggplot2::ggsave(
-  file.path(output_path, "figure2_tornado.pdf"),
-  plot = fig2, width = 7, height = 5, device = "pdf"
+  file.path(output_path, "figure2_tornado.jpeg"),
+  plot = fig2, width = 9, height = 7, device = "jpeg", dpi = 300
 )
-base::message("  Saved figure2_tornado.pdf")
+base::message("  Saved figure2_tornado.jpeg")
 
 # ============================================================
 # Figure 3: Threshold plot (high_risk_prevalence)
@@ -259,17 +272,22 @@ fig3 <- ggplot2::ggplot(
   ggplot2::scale_y_continuous(labels = scales::dollar_format()) +
   ggplot2::scale_colour_brewer(palette = "Set1", name = "Strategy") +
   ggplot2::labs(
-    title = "Threshold Analysis",
-    subtitle = "NMB by strategy across high-risk endometrial cancer prevalence",
-    x = "High-Risk Prevalence",
+    title = "Figure 3. Threshold Analysis of Strategy Preference\nAcross Endometrial Cancer Prevalence",
+    subtitle = paste0(
+      "Net monetary benefit for each strategy is plotted as high-risk endometrial cancer prevalence\n",
+      "increases from 0.1% to 5.0%, with a willingness-to-pay threshold of $100,000 per quality-adjusted\n",
+      "life-year. The strategy with the highest net monetary benefit at a given prevalence is preferred.\n",
+      "Selective transvaginal ultrasound becomes preferred over no testing at approximately 0.8% prevalence."
+    ),
+    x = "High-Risk Endometrial Cancer Prevalence",
     y = "Net Monetary Benefit ($)"
   ) +
   theme_journal()
 
 ggplot2::ggsave(
-  file.path(output_path, "figure3_threshold.pdf"),
-  plot = fig3, width = 7, height = 5, device = "pdf"
+  file.path(output_path, "figure3_threshold.jpeg"),
+  plot = fig3, width = 9, height = 7, device = "jpeg", dpi = 300
 )
-base::message("  Saved figure3_threshold.pdf")
+base::message("  Saved figure3_threshold.jpeg")
 
 base::message("All figures generated successfully.")
