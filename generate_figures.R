@@ -98,14 +98,8 @@ fig1 <- ggplot2::ggplot(plane_tbl, ggplot2::aes(x = total_cost, y = qaly_gained)
   ) +
   ggplot2::scale_colour_brewer(palette = "Set1", name = "Strategy") +
   ggplot2::labs(
-    title = "Figure 1. Cost-Effectiveness Plane for Selective Endometrial\nEvaluation Strategies Before LeFort Colpocleisis",
-    subtitle = paste0(
-      "Each point represents one strategy plotted by total cost and quality-adjusted life-years gained\n",
-      "in a modeled cohort of 10,000 women. The dashed line connects the two non-dominated strategies\n",
-      "on the efficiency frontier. Selective office Pipelle biopsy and selective concurrent dilation and\n",
-      "curettage are dominated, having higher cost and fewer quality-adjusted life-years than selective\n",
-      "transvaginal ultrasound."
-    ),
+    title = NULL,
+    subtitle = NULL,
     x = "Total Cost ($)",
     y = "Quality-Adjusted Life-Years Gained"
   ) +
@@ -211,14 +205,8 @@ fig2 <- ggplot2::ggplot(tornado_tbl) +
   ggplot2::geom_vline(xintercept = base_nmb, linetype = "dashed", colour = "grey30") +
   ggplot2::scale_x_continuous(labels = scales::dollar_format()) +
   ggplot2::labs(
-    title = "Figure 2. One-Way Sensitivity Analysis of Key Model Parameters",
-    subtitle = paste0(
-      "Each bar shows the range of net monetary benefit for the preferred strategy (",
-      strategy_labels[preferred_strategy],
-      ") when a single\nparameter is varied across its plausible range while all other parameters are held at base-case values.\n",
-      "The dashed vertical line marks the base-case net monetary benefit. High-risk cancer prevalence and\n",
-      "delayed cancer diagnosis cost have the greatest influence on model results."
-    ),
+    title = NULL,
+    subtitle = NULL,
     x = "Net Monetary Benefit ($)",
     y = NULL
   ) +
@@ -272,13 +260,8 @@ fig3 <- ggplot2::ggplot(
   ggplot2::scale_y_continuous(labels = scales::dollar_format()) +
   ggplot2::scale_colour_brewer(palette = "Set1", name = "Strategy") +
   ggplot2::labs(
-    title = "Figure 3. Threshold Analysis of Strategy Preference\nAcross Endometrial Cancer Prevalence",
-    subtitle = paste0(
-      "Net monetary benefit for each strategy is plotted as high-risk endometrial cancer prevalence\n",
-      "increases from 0.1% to 5.0%, with a willingness-to-pay threshold of $100,000 per quality-adjusted\n",
-      "life-year. The strategy with the highest net monetary benefit at a given prevalence is preferred.\n",
-      "Selective transvaginal ultrasound becomes preferred over no testing at approximately 0.8% prevalence."
-    ),
+    title = NULL,
+    subtitle = NULL,
     x = "High-Risk Endometrial Cancer Prevalence",
     y = "Net Monetary Benefit ($)"
   ) +
