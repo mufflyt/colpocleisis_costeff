@@ -427,7 +427,7 @@ run_colpocleisis_selective_testing_model <- function(
     qaly_gain_early_detection,
     "qaly_gain_early_detection"
   )
-  validate_non_negative(willingness_to_pay, "willingness_to_pay")
+  validate_positive(willingness_to_pay, "willingness_to_pay")
 
   if (!base::dir.exists(output_dir) && isTRUE(save_csv)) {
     base::message("Creating output directory: ", output_dir)
@@ -505,11 +505,18 @@ run_colpocleisis_selective_testing_model <- function(
     pipelle_adequate_rate *
     pipelle_conditional_sensitivity
 
-  pipelle_inadequate_cancer_pool <- cancers_high_risk *
+  pipelle_inadequate_cancer_pool_incremental <- cancers_high_risk *
     (1 - baseline_capture) *
     pipelle_inadequate_rate
 
-  pipelle_detected_via_inadequate_followup <- pipelle_inadequate_cancer_pool *
+  pipelle_inadequate_cancer_pool_baseline <- cancers_high_risk *
+    baseline_capture *
+    pipelle_inadequate_rate
+
+  pipelle_inadequate_cancer_pool_all <- pipelle_inadequate_cancer_pool_incremental +
+    pipelle_inadequate_cancer_pool_baseline
+
+  pipelle_detected_via_inadequate_followup <- pipelle_inadequate_cancer_pool_incremental *
     pipelle_inadequate_followup_rate *
     pipelle_inadequate_followup_sensitivity
 
@@ -528,7 +535,7 @@ run_colpocleisis_selective_testing_model <- function(
     pipelle_inadequate_rate
 
   pipelle_inadequate_followup_count <- (
-    pipelle_inadequate_non_cancer + pipelle_inadequate_cancer_pool
+    pipelle_inadequate_non_cancer + pipelle_inadequate_cancer_pool_all
   ) * pipelle_inadequate_followup_rate
 
   cost_pipelle <- (high_risk_count * pipelle_cost) +
@@ -688,7 +695,7 @@ run_colpocleisis_selective_testing_model <- function(
   base::message("Building efficiency frontier.")
   frontier_table <- build_efficiency_frontier(strategy_table) %>%
     dplyr::mutate(
-      net_monetary_benefit = (
+      frontier_net_monetary_benefit = (
         .data$qaly_gained * willingness_to_pay
       ) - .data$total_cost,
       frontier_transition_cost_effective = dplyr::case_when(
@@ -697,13 +704,13 @@ run_colpocleisis_selective_testing_model <- function(
         .data$sequential_icer <= willingness_to_pay ~ TRUE,
         TRUE ~ FALSE
       ),
-      frontier_path_cost_effective = base::Reduce(
+      frontier_path_cost_effective = base::unlist(base::Reduce(
         f = function(previous_value, current_value) {
           previous_value && current_value
         },
         x = .data$frontier_transition_cost_effective,
         accumulate = TRUE
-      )
+      ))
     )
 
   preferred_strategy_nmb <- strategy_table %>%
