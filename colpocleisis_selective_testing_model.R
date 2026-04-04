@@ -272,7 +272,7 @@ run_colpocleisis_selective_testing_model <- function(
     candidate_tbl %>%
       dplyr::mutate(on_frontier_strong = keep_indicator) %>%
       dplyr::filter(.data$on_frontier_strong) %>%
-      dplyr::select(-.data$on_frontier_strong) %>%
+      dplyr::select(-"on_frontier_strong") %>%
       dplyr::arrange(.data$total_cost, .data$qaly_gained)
   }
 
@@ -718,17 +718,17 @@ run_colpocleisis_selective_testing_model <- function(
         TRUE ~ FALSE
       )
     ) %>%
-    dplyr::select(-.data$no_testing_cost, -.data$no_testing_qaly) %>%
+    dplyr::select(-"no_testing_cost", -"no_testing_qaly") %>%
     dplyr::arrange(dplyr::desc(.data$net_monetary_benefit), .data$total_cost)
 
   base::message("Building efficiency frontier.")
   frontier_table <- build_efficiency_frontier(strategy_table) %>%
     dplyr::select(
-      -.data$incremental_cost_vs_none,
-      -.data$incremental_qaly_vs_none,
-      -.data$icer_vs_none,
-      -.data$net_monetary_benefit,
-      -.data$cost_effective_vs_none
+      -"incremental_cost_vs_none",
+      -"incremental_qaly_vs_none",
+      -"icer_vs_none",
+      -"net_monetary_benefit",
+      -"cost_effective_vs_none"
     ) %>%
     dplyr::mutate(
       frontier_net_monetary_benefit = (
