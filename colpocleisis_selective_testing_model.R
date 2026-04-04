@@ -1,3 +1,23 @@
+#' @import dplyr
+#' @importFrom tibble tibble
+#' @importFrom purrr walk2 map_lgl
+#' @importFrom readr write_csv
+#' @importFrom rlang .data
+
+required_packages <- c("tibble", "dplyr", "purrr", "rlang")
+missing_packages <- required_packages[
+  !vapply(required_packages, requireNamespace, logical(1), quietly = TRUE)
+]
+if (length(missing_packages) > 0) {
+  stop(
+    "Required packages not installed: ",
+    paste(missing_packages, collapse = ", "),
+    "\nInstall with: install.packages(c(",
+    paste0('"', missing_packages, '"', collapse = ", "),
+    "))"
+  )
+}
+
 #' Compare selective endometrial evaluation strategies before LeFort
 #' colpocleisis with efficiency-frontier analysis
 #'
@@ -366,6 +386,15 @@ run_colpocleisis_selective_testing_model <- function(
   validate_probability(high_risk_fraction, "high_risk_fraction")
   validate_probability(high_risk_prevalence, "high_risk_prevalence")
   validate_probability(low_risk_prevalence, "low_risk_prevalence")
+
+  if (high_risk_prevalence < low_risk_prevalence) {
+    base::stop(
+      "high_risk_prevalence (", high_risk_prevalence,
+      ") must be >= low_risk_prevalence (", low_risk_prevalence,
+      "). The high-risk subgroup should have equal or higher ",
+      "cancer prevalence than the low-risk subgroup."
+    )
+  }
   validate_probability(baseline_capture, "baseline_capture")
   validate_probability(tvus_sensitivity, "tvus_sensitivity")
   validate_probability(tvus_specificity, "tvus_specificity")
@@ -694,6 +723,13 @@ run_colpocleisis_selective_testing_model <- function(
 
   base::message("Building efficiency frontier.")
   frontier_table <- build_efficiency_frontier(strategy_table) %>%
+    dplyr::select(
+      -.data$incremental_cost_vs_none,
+      -.data$incremental_qaly_vs_none,
+      -.data$icer_vs_none,
+      -.data$net_monetary_benefit,
+      -.data$cost_effective_vs_none
+    ) %>%
     dplyr::mutate(
       frontier_net_monetary_benefit = (
         .data$qaly_gained * willingness_to_pay
