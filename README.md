@@ -132,6 +132,16 @@ This is a threshold-style expected-value model for abstract development and rapi
 
 Manuscript (423 words) is in `manuscript.txt` with figure legends appended.
 
+## Methodological source
+
+The decision-model architecture in this repository — single self-contained R file, explicit parameter defaults, efficiency-frontier analysis with strong and extended dominance removal, one-way sensitivity, and threshold analysis — is patterned after the companion code published with:
+
+> Larose TL, Meheus F, Brennan P, Johansson M, Robbins HA. **Assessment of biomarker testing for lung cancer screening eligibility.** *JAMA Netw Open.* 2020;3(3):e200409. doi:[10.1001/jamanetworkopen.2020.0409](https://doi.org/10.1001/jamanetworkopen.2020.0409).
+>
+> Companion code: [hilaryrobbins/costeff_lung_biom_public](https://github.com/hilaryrobbins/costeff_lung_biom_public)
+
+The clinical domain is unrelated (lung cancer screening), but the analytic structure is what we borrowed. Manuscripts based on this repository should cite Larose et al. 2020 in the Methods section when describing the cost-effectiveness framework.
+
 ## Contact
 
 Tyler Muffly

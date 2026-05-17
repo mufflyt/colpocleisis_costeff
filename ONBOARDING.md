@@ -31,20 +31,38 @@ For each strategy, the model calculates total cost, quality-adjusted life-years 
 
 ## 2. Where this code came from
 
-The model is a refactored and parameter-updated successor to my earlier scaffold repository:
+There are **two** prior code sources you must cite. Both go in the Methods section. Both will be expected by reviewers.
 
-**Parent repo:** https://github.com/mufflyt/cost_lefort
+### 2a. The published methodological source (cite in Methods)
 
-That earlier repo was the first pass — a one-cycle decision tree with placeholder parameters, set up the day before an abstract deadline. The current `colpocleisis_costeff` repo is the cleaned-up version:
+The decision-model architecture — single self-contained R file, explicit parameter defaults, efficiency-frontier analysis, one-way sensitivity, threshold analysis — is patterned after a published JAMA Network Open cost-effectiveness analysis whose authors deposited their full analytic code as a public companion repository. This was the working template I used to scaffold the colpocleisis model.
 
-- All parameters were replaced with literature-grounded values (see §5 below for the table you'll need for the Methods section).
+**Published paper:**
+
+> Larose TL, Meheus F, Brennan P, Johansson M, Robbins HA. **Assessment of biomarker testing for lung cancer screening eligibility.** *JAMA Netw Open.* 2020;3(3):e200409. doi:10.1001/jamanetworkopen.2020.0409.
+
+**Companion code repository:**
+
+> Robbins HA. *costeff_lung_biom_public*. GitHub. https://github.com/hilaryrobbins/costeff_lung_biom_public
+
+Larose et al. modeled the incremental cost-effectiveness of adding biomarker testing to lung cancer screening eligibility, varying test cost and case-capture parameters against a $50,000-per-life-year-gained willingness-to-pay threshold. The clinical domain (lung-cancer screening) is completely different from ours, but the *structural pattern* is what we borrowed: one well-documented model file that takes a parameter list, returns a strategy table and efficiency frontier, and can be re-run with overridden parameters for sensitivity analysis.
+
+**In the Methods section of our manuscript:** cite Larose et al. 2020 when describing the decision-model framework and explicitly note that the analytic code is adapted from the public companion repository at github.com/hilaryrobbins/costeff_lung_biom_public. This is good scientific practice — it makes the methodological lineage transparent and gives reviewers a reference implementation to compare against.
+
+### 2b. Our own scaffold repo (cite for transparency)
+
+Before this clean version was built, I had a quick-turn scaffold repo with placeholder parameters set up the day before an abstract deadline:
+
+**Parent scaffold repo:** https://github.com/mufflyt/cost_lefort
+
+The current `colpocleisis_costeff` repo is the cleaned-up successor:
+
+- All parameters were replaced with literature-grounded values (see §5 for the Methods table).
 - The model gained a proper efficiency-frontier algorithm (strong + extended dominance removal), sequential ICERs, and net monetary benefit ranking.
 - Three publication-quality JPEG figures were added.
 - The 423-word abstract was drafted.
 
-When you cite "methods" in the paper, the citation is to this repo (`colpocleisis_costeff`), not the parent. The parent is only relevant if a reviewer asks where the scaffolding came from — feel free to mention it as "previously archived at github.com/mufflyt/cost_lefort" if you want to be transparent about the lineage.
-
-The repo also follows the general structure pattern I use across cost-effectiveness analyses in our group — explicit parameter defaults in one place, one model function, one runner script, one figure script. This makes peer reviewers happy and lets a reader change a single parameter without hunting through code.
+When you cite "methods" in the paper, the citation is to this repo (`colpocleisis_costeff`), not the parent scaffold. The parent is only relevant if a reviewer asks about the lineage — feel free to mention it as "previously archived at github.com/mufflyt/cost_lefort" if you want to be transparent.
 
 ---
 
