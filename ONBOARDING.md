@@ -126,7 +126,42 @@ For the manuscript, each parameter needs a real citation. The "Source" column ab
 
 ---
 
-## 6. Target journal
+## 6. Prior literature — the decade-old precedent you must address
+
+There is one published precedent in *Urogynecology* (then *Female Pelvic Medicine & Reconstructive Surgery*) that asked nearly the same question we are asking, 12 years earlier. You **must** cite and engage with this paper — both because reviewers will demand it, and because the convergence between our findings and theirs is the rhetorical hook for the Discussion.
+
+**Kandadai P, Flynn M, Zweizig S, Patterson D.** *Cost-utility of routine endometrial evaluation before Le Fort colpocleisis.* Female Pelvic Med Reconstr Surg. 2014;20(3):168–173. doi:10.1097/SPV.0000000000000043. PMID 24763159. [LWW abstract](https://journals.lww.com/fpmrs/Abstract/2014/05000/Cost_Utility_of_Routine_Endometrial_Evaluation.10.aspx) · [PubMed](https://pubmed.ncbi.nlm.nih.gov/24763159/)
+
+**What they did.** Three-strategy decision-analysis (cost-utility) model in low-risk women undergoing LeFort colpocleisis: (1) endometrial biopsy, (2) transvaginal ultrasound, (3) no evaluation. Single cohort, no risk stratification, no efficiency frontier.
+
+**What they found.** At standard WTP thresholds ($50,000 and $100,000 per QALY), **no evaluation dominated both biopsy and TVUS**. Biopsy became preferred only at an implausible 64% cancer probability.
+
+**What our paper agrees with them on.** The headline finding — routine preoperative endometrial evaluation is not cost-effective in low-risk women undergoing LeFort. Our analysis independently replicates their central conclusion 12 years later with updated cost and accuracy parameters. This is *confirmatory*, not redundant.
+
+**What our paper does that theirs did not (this is the contribution).**
+
+| Dimension | Kandadai 2014 | Our paper |
+|---|---|---|
+| Strategies modeled | 3: biopsy, TVUS, no evaluation | **4**: no testing, selective TVUS, selective Pipelle, **concurrent D&C** |
+| Application of testing | Universal in the modeled cohort | **Selective** — applied only to a 30% higher-risk subgroup, which is how clinicians actually decide |
+| Concurrent D&C strategy | Not modeled | Modeled with **50% QALY credit** because pathology returns after the obliterative procedure is complete — so a positive result cannot change the surgical plan |
+| Pipelle inadequate-sample pathway | Not modeled | **29.1% inadequate-sample rate** is what dominates the Pipelle pathway — this is the mechanism prior analyses missed |
+| Efficiency frontier analysis | Not reported | Strong + extended dominance removal; sequential ICERs on the frontier; net monetary benefit ranking |
+| Clinically actionable threshold | 64% cancer probability (uninterpretable in practice) | **~0.8% prevalence** — a number that maps directly to postmenopausal bleeding, obesity, tamoxifen use, or Lynch syndrome |
+| Cost parameters | 2014 reimbursement landscape | 2022 CMS estimates: Pipelle $172.55, TVUS $125.23, concurrent D&C incremental $800 |
+| Test accuracy sources | Era-specific (pre-2014) | Updated to 2021 meta-analysis (low-risk prevalence), 2023 D&C systematic review, 2025 office biopsy cohort (Pipelle inadequate rate), 2025 prolapse hysterectomy cohort (high-risk prevalence) |
+
+**Recommended Discussion paragraph (use or adapt verbatim):**
+
+> A decade ago, Kandadai et al. examined a similar question with a three-strategy cost-utility model and concluded that no evaluation dominated both biopsy and TVUS at standard willingness-to-pay thresholds in low-risk women planning Le Fort colpocleisis.¹ Our analysis confirms that core finding with updated cost and test-accuracy parameters and extends it in four important ways. First, we model *selective* preoperative testing in a higher-risk subgroup rather than universal testing, mirroring contemporary practice. Second, we identify a clinically actionable prevalence threshold of approximately 0.8% at which TVUS becomes the preferred strategy — a threshold mapped to identifiable risk factors including postmenopausal bleeding, obesity, tamoxifen use, and Lynch syndrome — rather than the uninterpretable 64% cancer probability reported in 2014. Third, we add concurrent dilation and curettage as a fourth strategy and demonstrate that it is dominated because pathology results return after the obliterative procedure is complete, limiting any decision-changing value. Fourth, we incorporate the 29.1% Pipelle inadequate-sample rate documented in contemporary office-biopsy literature, which dominates the Pipelle pathway in a way prior analyses did not capture. The convergence between the 2014 and 2026 conclusions — that routine preoperative endometrial evaluation is not cost-effective in average-risk women — is strengthened, not weakened, by a decade of additional literature and an updated cost landscape.
+
+**For the Introduction:** mention Kandadai et al. once, briefly, as the prior cost-utility analysis. Save the full comparison for the Discussion.
+
+**For the parameter table (Table 1):** if you can find the exact parameter values Kandadai used (cancer prevalence, test sensitivities/specificities, costs), consider adding a footnote column showing how each parameter has changed since 2014. That's a small thing reviewers love.
+
+---
+
+## 7. Target journal
 
 **Primary submission target: *Urogynecology* (the AUGS journal, formerly *Female Pelvic Medicine & Reconstructive Surgery*).** The paper is squarely in AUGS scope: surgical decision-making in obliterative prolapse repair, with a cost-effectiveness angle. Format the manuscript to *Urogynecology* author guidelines from the outset.
 
@@ -138,7 +173,7 @@ Backup options if rejected:
 
 ---
 
-## 7. Open questions to resolve before submission
+## 8. Open questions to resolve before submission
 
 1. **Cohort size sensitivity.** We modeled n=10,000. Does the conclusion change at smaller realistic clinical cohorts? Probably not (results are deterministic), but worth a sentence.
 2. **High-risk fraction.** The 30% figure is modeled. If you can pull a real-world estimate from a colpocleisis cohort (postmenopausal bleeding rates + obesity + tamoxifen + Lynch), the paper gets stronger.
@@ -148,7 +183,7 @@ Backup options if rejected:
 
 ---
 
-## 8. If you do want to re-run the model (you probably won't need to)
+## 9. If you do want to re-run the model (you probably won't need to)
 
 You can write the entire paper without ever opening RStudio. But if you want to run a custom scenario (e.g., what if we set high-risk prevalence to 1.5%?), here is the minimum:
 
@@ -184,7 +219,7 @@ If any of that errors, send me the error message — don't try to fix it yoursel
 
 ---
 
-## 9. Working agreement
+## 10. Working agreement
 
 - Drop drafts in a shared folder (Google Drive or Dropbox — your preference, just send me the link).
 - Don't push directly to `main` on GitHub. If you want to edit the manuscript text or change a parameter, send me the change and I'll commit it. The repo itself should stay a stable methods deposit.
@@ -192,7 +227,7 @@ If any of that errors, send me the error message — don't try to fix it yoursel
 
 ---
 
-## 10. Contact
+## 11. Contact
 
 - **Tyler Muffly, MD** — tyler.muffly@dhha.org — PI, Denver Health Ob/Gyn
 - **Michelle Batlle** — Michelle.batlle@cuanschutz.edu — manuscript lead
