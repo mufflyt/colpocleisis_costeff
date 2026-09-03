@@ -176,6 +176,13 @@ run_colpocleisis_selective_testing_model <- function(
     }
   }
 
+  # format() falls back to scientific notation once a value is large enough,
+  # so a $100,000 willingness-to-pay threshold printed as "$1e+05". Every
+  # number that reaches a message or the summary sentence goes through here.
+  format_number <- function(value) {
+    base::format(value, big.mark = ",", scientific = FALSE, trim = TRUE)
+  }
+
   scalar_pull_chr <- function(table_name, strategy_name, column_name) {
     row_index <- base::which(table_name$strategy == strategy_name)
 
@@ -380,7 +387,7 @@ run_colpocleisis_selective_testing_model <- function(
   purrr::walk2(
     .x = assumptions_tbl$parameter,
     .y = assumptions_tbl$value,
-    .f = ~ base::message("  ", .x, " = ", .y)
+    .f = ~ base::message("  ", .x, " = ", format_number(.y))
   )
 
   validate_probability(high_risk_fraction, "high_risk_fraction")
@@ -481,15 +488,15 @@ run_colpocleisis_selective_testing_model <- function(
 
   base::message(
     "  high_risk_count = ",
-    format(round(high_risk_count, 2), big.mark = ",")
+    format_number(round(high_risk_count, 2))
   )
   base::message(
     "  low_risk_count = ",
-    format(round(low_risk_count, 2), big.mark = ",")
+    format_number(round(low_risk_count, 2))
   )
   base::message(
     "  cancers_total = ",
-    format(round(cancers_total, 2), big.mark = ",")
+    format_number(round(cancers_total, 2))
   )
 
   base::message("Calculating no testing arm.")
@@ -523,7 +530,7 @@ run_colpocleisis_selective_testing_model <- function(
 
   base::message(
     "  tvus_abnormal_count = ",
-    format(round(tvus_abnormal_count, 2), big.mark = ",")
+    format_number(round(tvus_abnormal_count, 2))
   )
 
   base::message("Calculating selective office Pipelle arm.")
@@ -578,7 +585,7 @@ run_colpocleisis_selective_testing_model <- function(
 
   base::message(
     "  pipelle_inadequate_followup_count = ",
-    format(round(pipelle_inadequate_followup_count, 2), big.mark = ",")
+    format_number(round(pipelle_inadequate_followup_count, 2))
   )
 
   base::message("Calculating selective concurrent D&C arm.")
@@ -608,7 +615,7 @@ run_colpocleisis_selective_testing_model <- function(
 
   base::message(
     "  dnc_effective_detected_total = ",
-    format(round(dnc_effective_detected_total, 2), big.mark = ",")
+    format_number(round(dnc_effective_detected_total, 2))
   )
 
   base::message("Assembling full strategy table.")
@@ -803,23 +810,23 @@ run_colpocleisis_selective_testing_model <- function(
 
   summary_sentence <- paste0(
     "In this modeled cohort of ",
-    format(surgery_count, big.mark = ","),
+    format_number(surgery_count),
     " women undergoing LeFort colpocleisis, the strategy with the ",
     "highest net monetary benefit at a willingness-to-pay threshold ",
     "of $",
-    format(willingness_to_pay, big.mark = ","),
+    format_number(willingness_to_pay),
     " per QALY was ",
     preferred_strategy_nmb,
     ". On formal efficiency-frontier analysis, the preferred ",
     "non-dominated strategy was ",
     preferred_strategy_frontier,
     ". Compared with no testing, selective TVUS yielded ",
-    format(round(tvus_gain_vs_none, 2), big.mark = ","),
+    format_number(round(tvus_gain_vs_none, 2)),
     " additional effective early detections, selective office Pipelle ",
     "yielded ",
-    format(round(pipelle_gain_vs_none, 2), big.mark = ","),
+    format_number(round(pipelle_gain_vs_none, 2)),
     ", and selective concurrent D&C yielded ",
-    format(round(dnc_gain_vs_none, 2), big.mark = ","),
+    format_number(round(dnc_gain_vs_none, 2)),
     "."
   )
 
