@@ -3,7 +3,7 @@
 **For:** Michelle Batlle (Michelle.batlle@cuanschutz.edu)
 **Lead:** Tyler Muffly, MD — Department of Obstetrics & Gynecology, Denver Health
 **Repo:** https://github.com/mufflyt/colpocleisis_costeff (local: `/Users/tylermuffly/colpocleisis_costeff`)
-**Status:** The decision model runs end-to-end, all three figures are generated, and a 423-word abstract is drafted. Your job is to turn that abstract into a full manuscript.
+**Status:** The decision model runs end-to-end, all three figures are generated, and a 393-word abstract is drafted. Your job is to turn that abstract into a full manuscript.
 **You do not need to run any R code.** Everything you need to write the paper is already in this repo as plain text, CSVs, and image files. Instructions for re-running are included only as a safety net.
 
 ---
@@ -23,7 +23,7 @@ LeFort colpocleisis is a surgery that closes the vaginal canal to treat severe p
 
 For each strategy, the model calculates total cost, quality-adjusted life-years (QALYs) gained, and the incremental cost-effectiveness ratio (ICER). It also identifies which strategies are "dominated" (worse on both axes — strictly inferior).
 
-**Headline finding:** At the base-case occult cancer prevalence (0.56%), **no testing wins.** Only TVUS and no testing are on the efficiency frontier; Pipelle and concurrent D&C are dominated. TVUS only becomes preferable when prevalence rises above **~0.8%**, which is the kind of risk you see in women with postmenopausal bleeding, obesity, tamoxifen use, or Lynch syndrome.
+**Headline finding:** At the base-case occult cancer prevalence (0.56%), **no testing wins.** Only TVUS and no testing are on the efficiency frontier; Pipelle and concurrent D&C are dominated. TVUS only becomes preferable when prevalence rises above **0.72%**, which is the kind of risk you see in women with postmenopausal bleeding, obesity, tamoxifen use, or Lynch syndrome.
 
 **Clinical implication:** Routine preoperative endometrial evaluation is not cost-effective for low-risk asymptomatic women planning a LeFort. A risk-stratified approach — TVUS only above the prevalence threshold — is the right policy.
 
@@ -60,7 +60,7 @@ The current `colpocleisis_costeff` repo is the cleaned-up successor:
 - All parameters were replaced with literature-grounded values (see §5 for the Methods table).
 - The model gained a proper efficiency-frontier algorithm (strong + extended dominance removal), sequential ICERs, and net monetary benefit ranking.
 - Three publication-quality JPEG figures were added.
-- The 423-word abstract was drafted.
+- The 393-word abstract was drafted.
 
 When you cite "methods" in the paper, the citation is to this repo (`colpocleisis_costeff`), not the parent scaffold. The parent is only relevant if a reviewer asks about the lineage — feel free to mention it as "previously archived at github.com/mufflyt/cost_lefort" if you want to be transparent.
 
@@ -72,13 +72,13 @@ Every artifact you need to write the paper is already in the repo. You should no
 
 | Where | What |
 |---|---|
-| `manuscript.txt` | The full 423-word structured abstract (Intro / Methods / Results / Conclusions) plus all three figure legends. **Start here.** |
+| `manuscript.txt` | The full 393-word structured abstract (Intro / Methods / Results / Conclusions) plus all three figure legends. **Start here.** |
 | `README.md` | Plain-English summary, full parameter table with literature sources, repo structure. |
 | `output/figure1_ce_plane.jpeg` | Figure 1: cost-effectiveness plane with the efficiency frontier. |
 | `output/figure2_tornado.jpeg` | Figure 2: one-way sensitivity tornado diagram. |
-| `output/figure3_threshold.jpeg` | Figure 3: threshold analysis (the 0.8% prevalence inflection point). |
+| `output/figure3_threshold.jpeg` | Figure 3: threshold analysis (the 0.72% prevalence inflection point). |
 | `output/*.csv` | Numeric strategy and frontier tables — these are the exact numbers behind the figures, so you can pull any value into the Results section verbatim. |
-| `colpocleisis_selective_testing_model.R` | The model itself — ~830 lines of documented R. You should not need to edit this. It is the single source of truth for what the model does. |
+| `colpocleisis_selective_testing_model.R` | The model itself — ~880 lines of documented R. You should not need to edit this. It is the single source of truth for what the model does. |
 | `generate_figures.R` | The script that produces the three JPEGs. You should not need to edit this either. |
 | `run_example.R` | A 24-line wrapper that runs the model and prints the strategy table, frontier, and summary sentence. |
 
@@ -105,11 +105,11 @@ The abstract is in `manuscript.txt`. Build it out to a full short report — pro
 **3. Results (~400–600 words + the three figures + 1 table).** Use the headline numbers from §1 and the CSV tables in `output/`. The key sentences are already drafted in `manuscript.txt`.
 
 **4. Discussion (~700–900 words).**
-- Restate the finding: at base-case prevalence, no testing wins; TVUS only wins above ~0.8%.
+- Restate the finding: at base-case prevalence, no testing wins; TVUS only wins above 0.72%.
 - Compare to existing practice (the 68% surveyed-surgeon number is the rhetorical hook).
 - Why Pipelle is dominated: 29.1% inadequate-sample rate undermines its high theoretical accuracy.
 - Why concurrent D&C is dominated: results return after the obliterative procedure, so partial QALY credit.
-- Implications for shared decision-making: a checklist of risk factors (postmenopausal bleeding, obesity, tamoxifen use, Lynch syndrome) that crosses the 0.8% threshold.
+- Implications for shared decision-making: a checklist of risk factors (postmenopausal bleeding, obesity, tamoxifen use, Lynch syndrome) that crosses the 0.72% threshold.
 - **Limitations:** parameters drawn from postmenopausal-bleeding literature, not specifically from asymptomatic colpocleisis candidates; not a full lifetime Markov model; expected-value framework cannot capture rare-event tail risk well; Medicare-anchored costs may not generalize to commercial payers; QALY gain per early detection (0.10) is a conservative estimate; high-risk-fraction (30%) is modeled, not empiric.
 - Future directions: Markov extension, microsimulation, prospective validation in a colpocleisis cohort.
 
@@ -128,13 +128,20 @@ This is straight from `README.md` and is the canonical version. Reproduce it as 
 | Occult cancer prevalence (high-risk) | 0.56% | 2025 prolapse hysterectomy cohort |
 | Occult cancer prevalence (low-risk) | 0.22% | 2021 meta-analysis |
 | High-risk fraction tested | 30% | Modeled from practice pattern surveys |
+| Baseline detection without testing | 10% | Modeled assumption — cancers found without any preoperative evaluation |
 | TVUS sensitivity / specificity | 94.1% / 66.8% | Postmenopausal bleeding diagnostic review (4 mm threshold) |
 | Pipelle sensitivity / specificity | 100% / 98% | Conditional on adequate sample |
 | Pipelle inadequate sample rate | 29.1% | 2025 office biopsy cohort |
+| Pipelle inadequate-sample follow-up rate | 50% | Modeled assumption — proportion undergoing further workup |
+| Pipelle inadequate-sample follow-up sensitivity | 88% | Modeled — set equal to D&C sensitivity |
 | D&C sensitivity / specificity | 88% / 98.4% | 2023 systematic review / meta-analysis |
 | TVUS cost | $125.23 | 2022 CMS nonfacility estimate |
+| TVUS abnormal-result workup cost | $172.55 | Office biopsy cost applied to an abnormal TVUS |
 | Pipelle cost | $172.55 | 2022 prolapse preop evaluation study |
+| Pipelle false-positive follow-up cost | $172.55 | Repeat office biopsy cost |
+| Pipelle inadequate-sample follow-up cost | $2,310 | Modeled assumption — operative workup after an inadequate sample |
 | Concurrent D&C incremental cost | $800 | Marginal OR cost estimate |
+| Concurrent D&C false-positive cost | $0 | Modeled assumption — sampling shares the surgical anesthetic |
 | D&C effective detection credit | 50% | Modeled (results return post-procedure) |
 | Delayed cancer diagnosis cost | $20,000 | Anchored to 90-day endometrial cancer costs |
 | QALY gain per early detection | 0.10 | Conservative estimate |
@@ -165,13 +172,13 @@ There is one published precedent in *Urogynecology* (then *Female Pelvic Medicin
 | Concurrent D&C strategy | Not modeled | Modeled with **50% QALY credit** because pathology returns after the obliterative procedure is complete — so a positive result cannot change the surgical plan |
 | Pipelle inadequate-sample pathway | Not modeled | **29.1% inadequate-sample rate** is what dominates the Pipelle pathway — this is the mechanism prior analyses missed |
 | Efficiency frontier analysis | Not reported | Strong + extended dominance removal; sequential ICERs on the frontier; net monetary benefit ranking |
-| Clinically actionable threshold | 64% cancer probability (uninterpretable in practice) | **~0.8% prevalence** — a number that maps directly to postmenopausal bleeding, obesity, tamoxifen use, or Lynch syndrome |
+| Clinically actionable threshold | 64% cancer probability (uninterpretable in practice) | **0.72% prevalence** — a number that maps directly to postmenopausal bleeding, obesity, tamoxifen use, or Lynch syndrome |
 | Cost parameters | 2014 reimbursement landscape | 2022 CMS estimates: Pipelle $172.55, TVUS $125.23, concurrent D&C incremental $800 |
 | Test accuracy sources | Era-specific (pre-2014) | Updated to 2021 meta-analysis (low-risk prevalence), 2023 D&C systematic review, 2025 office biopsy cohort (Pipelle inadequate rate), 2025 prolapse hysterectomy cohort (high-risk prevalence) |
 
 **Recommended Discussion paragraph (use or adapt verbatim):**
 
-> A decade ago, Kandadai et al. examined a similar question with a three-strategy cost-utility model and concluded that no evaluation dominated both biopsy and TVUS at standard willingness-to-pay thresholds in low-risk women planning Le Fort colpocleisis.¹ Our analysis confirms that core finding with updated cost and test-accuracy parameters and extends it in four important ways. First, we model *selective* preoperative testing in a higher-risk subgroup rather than universal testing, mirroring contemporary practice. Second, we identify a clinically actionable prevalence threshold of approximately 0.8% at which TVUS becomes the preferred strategy — a threshold mapped to identifiable risk factors including postmenopausal bleeding, obesity, tamoxifen use, and Lynch syndrome — rather than the uninterpretable 64% cancer probability reported in 2014. Third, we add concurrent dilation and curettage as a fourth strategy and demonstrate that it is dominated because pathology results return after the obliterative procedure is complete, limiting any decision-changing value. Fourth, we incorporate the 29.1% Pipelle inadequate-sample rate documented in contemporary office-biopsy literature, which dominates the Pipelle pathway in a way prior analyses did not capture. The convergence between the 2014 and 2026 conclusions — that routine preoperative endometrial evaluation is not cost-effective in average-risk women — is strengthened, not weakened, by a decade of additional literature and an updated cost landscape.
+> A decade ago, Kandadai et al. examined a similar question with a three-strategy cost-utility model and concluded that no evaluation dominated both biopsy and TVUS at standard willingness-to-pay thresholds in low-risk women planning Le Fort colpocleisis.¹ Our analysis confirms that core finding with updated cost and test-accuracy parameters and extends it in four important ways. First, we model *selective* preoperative testing in a higher-risk subgroup rather than universal testing, mirroring contemporary practice. Second, we identify a clinically actionable prevalence threshold of 0.72% at which TVUS becomes the preferred strategy — a threshold mapped to identifiable risk factors including postmenopausal bleeding, obesity, tamoxifen use, and Lynch syndrome — rather than the uninterpretable 64% cancer probability reported in 2014. Third, we add concurrent dilation and curettage as a fourth strategy and demonstrate that it is dominated because pathology results return after the obliterative procedure is complete, limiting any decision-changing value. Fourth, we incorporate the 29.1% Pipelle inadequate-sample rate documented in contemporary office-biopsy literature, which dominates the Pipelle pathway in a way prior analyses did not capture. The convergence between the 2014 and 2026 conclusions — that routine preoperative endometrial evaluation is not cost-effective in average-risk women — is strengthened, not weakened, by a decade of additional literature and an updated cost landscape.
 
 **For the Introduction:** mention Kandadai et al. once, briefly, as the prior cost-utility analysis. Save the full comparison for the Discussion.
 
