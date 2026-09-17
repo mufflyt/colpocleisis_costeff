@@ -19,7 +19,7 @@ LeFort colpocleisis obliterates the vaginal canal, making subsequent uterine eva
 
 - At base-case cancer prevalence (0.56%), **no testing is preferred** — testing costs far exceed the benefit of early detection
 - Only no testing and transvaginal ultrasound survive on the efficiency frontier; Pipelle and concurrent D&C are **dominated** (higher cost, fewer QALYs)
-- Transvaginal ultrasound becomes the preferred strategy when high-risk prevalence exceeds **approximately 0.8%**, achievable in women with postmenopausal bleeding, obesity, tamoxifen use, or Lynch syndrome
+- Transvaginal ultrasound becomes the preferred strategy when high-risk prevalence exceeds **0.72%**, achievable in women with postmenopausal bleeding, obesity, tamoxifen use, or Lynch syndrome
 - Results are most sensitive to **cancer prevalence** and **delayed diagnosis cost**
 
 ## Repository Structure
@@ -29,7 +29,7 @@ colpocleisis_costeff/
 ├── colpocleisis_selective_testing_model.R   # Main model function
 ├── run_example.R                            # Quick-start script (runs base case, prints results)
 ├── generate_figures.R                       # Generates all 3 publication figures
-├── manuscript.txt                           # Abstract text (423 words) + figure legends
+├── manuscript.txt                           # Abstract text (393 words) + figure legends
 ├── output/                                  # Generated figures and CSV tables (gitignored)
 │   ├── figure1_ce_plane.jpeg
 │   ├── figure2_tornado.jpeg
@@ -88,13 +88,20 @@ All defaults are literature-based. Key sources:
 | Occult cancer prevalence (high-risk) | 0.56% | 2025 prolapse hysterectomy cohort |
 | Occult cancer prevalence (low-risk) | 0.22% | 2021 meta-analysis |
 | High-risk fraction tested | 30% | Modeled from practice pattern surveys |
+| Baseline detection without testing | 10% | Modeled assumption — cancers found without any preoperative evaluation |
 | TVUS sensitivity / specificity | 94.1% / 66.8% | Postmenopausal bleeding diagnostic review (4mm threshold) |
 | Pipelle sensitivity / specificity | 100% / 98% | Conditional on adequate sample |
 | Pipelle inadequate sample rate | 29.1% | 2025 office biopsy cohort |
+| Pipelle inadequate-sample follow-up rate | 50% | Modeled assumption — proportion undergoing further workup |
+| Pipelle inadequate-sample follow-up sensitivity | 88% | Modeled — set equal to D&C sensitivity |
 | D&C sensitivity / specificity | 88% / 98.4% | 2023 systematic review/meta-analysis |
 | TVUS cost | $125.23 | 2022 CMS nonfacility estimate |
+| TVUS abnormal-result workup cost | $172.55 | Office biopsy cost applied to an abnormal TVUS |
 | Pipelle cost | $172.55 | 2022 prolapse preop evaluation study |
+| Pipelle false-positive follow-up cost | $172.55 | Repeat office biopsy cost |
+| Pipelle inadequate-sample follow-up cost | $2,310 | Modeled assumption — operative workup after an inadequate sample |
 | Concurrent D&C incremental cost | $800 | Marginal OR cost estimate |
+| Concurrent D&C false-positive cost | $0 | Modeled assumption — sampling shares the surgical anesthetic |
 | D&C effective detection credit | 50% | Modeled (results return post-procedure) |
 | Delayed cancer diagnosis cost | $20,000 | Anchored to 90-day endometrial cancer costs |
 | QALY gain per early detection | 0.10 | Conservative estimate |
@@ -130,7 +137,7 @@ This is a threshold-style expected-value model for abstract development and rapi
 
 ## Abstract Status
 
-Manuscript (423 words) is in `manuscript.txt` with figure legends appended.
+Manuscript (393 words) is in `manuscript.txt` with figure legends appended.
 
 ## Methodological source
 
