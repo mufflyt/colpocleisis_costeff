@@ -2,6 +2,22 @@
 
 A threshold-style decision analysis comparing four preoperative endometrial evaluation strategies before LeFort colpocleisis for detection of occult endometrial cancer.
 
+## Documentation and project status
+
+Start with [the implemented model specification](docs/MODEL_SPECIFICATION.md)
+to understand the code's cost/QALY equations, what is assumed, and what
+clinical pathways are **not** simulated. See
+[reproducibility and extension notes](docs/REPRODUCIBILITY_AND_EXTENSION.md)
+for manuscript handoff, figure regeneration, a pre-submission checklist,
+and the proposed LeFort-versus-hysteropexy/SCH sensitivity analysis.
+
+**Status:** This repository contains a decision-model implementation,
+figure-generation code, and a **structured abstract with figure legends**
+(`manuscript.txt`); it does not contain a finished full-length manuscript.
+The October 2026 AUGS slide deck and spoken script were prepared separately
+and are not tracked here. Numerical findings are conditional on model
+assumptions and should be re-run at a pinned commit before submission.
+
 ## Clinical Question
 
 Should women undergoing LeFort colpocleisis receive preoperative endometrial evaluation, and if so, which diagnostic strategy is most cost-effective?
@@ -19,7 +35,10 @@ LeFort colpocleisis obliterates the vaginal canal, making subsequent uterine eva
 
 - At base-case cancer prevalence (0.56%), **no testing is preferred** — testing costs far exceed the benefit of early detection
 - Only no testing and transvaginal ultrasound survive on the efficiency frontier; Pipelle and concurrent D&C are **dominated** (higher cost, fewer QALYs)
-- Transvaginal ultrasound becomes the preferred strategy when high-risk prevalence exceeds **0.72%**, achievable in women with postmenopausal bleeding, obesity, tamoxifen use, or Lynch syndrome
+- Transvaginal ultrasound becomes the preferred strategy when high-risk prevalence exceeds **0.72%** in the current documented analysis (verify against the
+  exact code revision used for publication). This is **high-risk subgroup
+  prevalence**, not individual predicted risk; risk factors alone do not
+  establish that a particular patient crosses the threshold
 - Results are most sensitive to **cancer prevalence** and **delayed diagnosis cost**
 
 ## Repository Structure
@@ -66,22 +85,32 @@ strategy_bundle <- run_colpocleisis_selective_testing_model(save_csv = TRUE, out
 
 ### Generate figures
 
-```bash
-Rscript generate_figures.R
+From the repository root in an R session:
+
+```r
+base::source("generate_figures.R")
 ```
 
 Produces three JPEG files (300 DPI) in `output/`.
 
-### Run everything at once
+### Run the example and figures
 
-```bash
-Rscript run_example.R      # model + CSV tables
-Rscript generate_figures.R  # all 3 figures
+From the repository root in an R session:
+
+```r
+base::source("run_example.R")
+base::source("generate_figures.R")
 ```
+
+The model's CSV filenames contain timestamps; the figure script currently
+uses fixed JPEG filenames and overwrites them on subsequent runs.
+See the [reproducibility guide](docs/REPRODUCIBILITY_AND_EXTENSION.md)
+for a run-record checklist.
 
 ## Model Parameters and Defaults
 
-All defaults are literature-based. Key sources:
+Defaults combine literature-derived estimates with explicit modeling
+assumptions. This distinction matters for interpretation. Key inputs:
 
 | Parameter | Default | Source |
 |---|---|---|
@@ -130,6 +159,16 @@ run_colpocleisis_selective_testing_model(
 - Pipelle inadequate-sample follow-up pathway (with recovery detection)
 - Concurrent D&C modeled with partial QALY credit (results return after surgery)
 - Input validation including cross-parameter consistency checks
+
+## Important structural limitation
+
+The model has no explicit postoperative uterine-access pathway. The
+`delayed_cancer_cost` and `qaly_gain_early_detection` terms bundle broad
+consequences of missing versus detecting cancer early, and **cannot**
+be interpreted as a measured access penalty specifically caused by
+LeFort closure. The proposed hysteropexy/SCH comparison requires new,
+procedure-specific pathways; simply setting those terms to zero would
+be misleading. Details: [model specification](docs/MODEL_SPECIFICATION.md).
 
 ## What This Is Not
 
