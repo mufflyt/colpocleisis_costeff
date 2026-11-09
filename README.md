@@ -18,6 +18,31 @@ The October 2026 AUGS slide deck and spoken script were prepared separately
 and are not tracked here. Numerical findings are conditional on model
 assumptions and should be re-run at a pinned commit before submission.
 
+## New research scaffold: common screening model across procedures
+
+The proposed AUGS consensus extension is **in development**. See
+[the shared screening study protocol](docs/SHARED_SCREENING_STUDY_PLAN.md)
+and [the new R implementation](R/shared_preop_screening_model.R).
+
+This **separate** model evaluates no routine screening versus screening
+pathways within each intended prolapse procedure (TVH/USLS,
+USLS/SSLS hysteropexy, TLH/SCP, SCH/SCP, and mesh sacral hysteropexy).
+Occult **EIN and invasive cancer** have distinct postoperative
+consequences; the model reports expected costs, QALYs, detection counts
+and incremental net monetary benefit.
+
+**Do not use it for clinical recommendations yet:** procedure-specific
+inputs intentionally default to `NA` until evidence or explicitly
+labeled expert assumptions are supplied. Anatomic distinctions are
+plausible but their quantitative effects have not been validated.
+The first version addresses prevalent disease over an explicit common
+horizon, not lifetime incident cancer or fully selective screening.
+
+The structural smoke-test script is
+`tests/test_shared_preop_screening_model.R`, using **illustrative**
+values only. It must be run and independently validated before making
+claims about results. The original LeFort model is unchanged.
+
 ## Clinical Question
 
 Should women undergoing LeFort colpocleisis receive preoperative endometrial evaluation, and if so, which diagnostic strategy is most cost-effective?
