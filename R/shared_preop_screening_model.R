@@ -8,7 +8,8 @@
 #'   cost_post, cost_missed, qaly_pre, qaly_post, qaly_missed.
 #' @param screening One row per strategy, with strategy,
 #'   sensitivity_ein, sensitivity_cancer, specificity,
-#'   testing_cost, positive_followup_cost, false_positive_cost.
+#'   testing_cost, positive_followup_cost, false_positive_cost,
+#'   testing_qaly_loss, false_positive_qaly_loss.
 #'   Sensitivities are for the full prespecified screening pathway.
 #' @param prevalence Named numeric vector: ein, cancer.
 #' @param surgery_count Hypothetical number undergoing each procedure.
@@ -30,7 +31,8 @@ run_shared_preop_screening_model <- function(
   required_screen <- c(
     "strategy", "sensitivity_ein", "sensitivity_cancer",
     "specificity", "testing_cost", "positive_followup_cost",
-    "false_positive_cost"
+    "false_positive_cost", "testing_qaly_loss",
+    "false_positive_qaly_loss"
   )
   if (!base::is.data.frame(procedures) ||
       !base::all(required_procedure %in% base::names(procedures))) {
@@ -64,7 +66,9 @@ run_shared_preop_screening_model <- function(
     procedures$cost_pre, procedures$cost_post,
     procedures$cost_missed, screening$testing_cost,
     screening$positive_followup_cost,
-    screening$false_positive_cost
+    screening$false_positive_cost,
+    screening$testing_qaly_loss,
+    screening$false_positive_qaly_loss
   )
   if (base::any(!base::is.finite(numeric_values)) ||
       base::any(numeric_values < 0)) {
@@ -105,7 +109,9 @@ run_shared_preop_screening_model <- function(
       no_screen$specificity != 1 ||
       no_screen$testing_cost != 0 ||
       no_screen$positive_followup_cost != 0 ||
-      no_screen$false_positive_cost != 0) {
+      no_screen$false_positive_cost != 0 ||
+      no_screen$testing_qaly_loss != 0 ||
+      no_screen$false_positive_qaly_loss != 0) {
     base::stop("Provide a zero-cost, zero-detection no_screen row.")
   }
   base::message("Expanding every screening strategy across procedures.")
@@ -172,7 +178,10 @@ run_shared_preop_screening_model <- function(
         .data$false_positive_cost,
       total_cost = .data$disease_cost + .data$screening_cost +
         .data$positive_workup_cost + .data$false_positive_cost,
-      total_qaly = .data$disease_qaly,
+      total_qaly = .data$disease_qaly -
+        surgery_count * .data$testing_qaly_loss -
+        .data$expected_false_positives *
+        .data$false_positive_qaly_loss,
       nmb = willingness_to_pay * .data$total_qaly -
         .data$total_cost
     ) |>
@@ -226,7 +235,9 @@ make_shared_preop_screening_inputs <- function() {
     specificity = c(1, NA_real_, NA_real_),
     testing_cost = c(0, NA_real_, NA_real_),
     positive_followup_cost = c(0, NA_real_, NA_real_),
-    false_positive_cost = c(0, NA_real_, NA_real_)
+    false_positive_cost = c(0, NA_real_, NA_real_),
+    testing_qaly_loss = c(0, NA_real_, NA_real_),
+    false_positive_qaly_loss = c(0, NA_real_, NA_real_)
   )
   base::message(
     "Created blank clinical parameter tables for 6 procedures."
