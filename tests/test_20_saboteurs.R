@@ -142,15 +142,19 @@ saboteur_cases <- base::list(
     altered <- make_synthetic_inputs()
     altered$prevalence <- c(ein = 0, cancer = 0)
     tab <- base::suppressMessages(call_model(altered))
-    assert_equal(tab$expected_pre_detections, 0)
-    assert_equal(tab$expected_post_detections, 0)
-    assert_equal(tab$expected_undetected, 0)
+    assert_equal(tab$expected_pre_detections,
+                 base::rep(0, base::nrow(tab)))
+    assert_equal(tab$expected_post_detections,
+                 base::rep(0, base::nrow(tab)))
+    assert_equal(tab$expected_undetected,
+                 base::rep(0, base::nrow(tab)))
   },
   "17 false positives vanish at specificity one" = function() {
     altered <- make_synthetic_inputs()
     altered$screening$specificity <- 1
     tab <- base::suppressMessages(call_model(altered))
-    assert_equal(tab$expected_false_positives, 0)
+    assert_equal(tab$expected_false_positives,
+                 base::rep(0, base::nrow(tab)))
   },
   "18 doubling cohort doubles additive outcomes" = function() {
     altered <- make_synthetic_inputs()
