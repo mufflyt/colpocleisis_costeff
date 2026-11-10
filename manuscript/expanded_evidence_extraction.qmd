@@ -250,3 +250,39 @@ https://pubmed.ncbi.nlm.nih.gov/41611996/
 rule among both cancer and non-cancer prolapse patients. Without them,
 the risk-stratified model's tested fraction, specificity, and prevalence
 remain uncalibrated.
+
+## Frick et al. (2010): symptom-stratified unexpected pathology
+
+Frick and colleagues reported **17/644 (2.6%)** unexpected premalignant
+or malignant pathology findings after hysterectomy for uterovaginal
+prolapse. The conference abstract provides the important symptom-specific
+comparison:
+
+| Preoperative group | Unexpected pathology | Interpretation |
+| --- | --- | --- |
+| Postmenopausal, no reported bleeding | 11/421 (2.6%) | Pathology prevalence in the asymptomatic surgical cohort; the broad hyperplasia endpoint is **not** EIN prevalence |
+| Postmenopausal, bleeding with negative evaluation | 6/45 (13.3%) | Residual pathology after negative workup in a *symptomatic* group; exclude from primary asymptomatic calibration |
+
+Of the six patients with unexpected pathology in the second group,
+**five had undergone endometrial biopsy and one had undergone
+ultrasound**. These are case descriptions, not test-specific
+false-negative rates. The report does **not** establish a D&C miss rate;
+it does not provide verified test-specific denominators required to
+calculate biopsy sensitivity or specificity. The conference report
+identifies five hyperplasia diagnoses and one carcinoma among these
+six symptomatic women.
+
+**Model treatment:** Use the 11/421 asymptomatic row only as a historical
+broad-pathology sensitivity anchor, pending histology and workup
+adjudication. Keep 6/45 in a *separate symptomatic negative-workup
+scenario*, not the base case. Do not substitute 13.3% for the
+false-negative probability of biopsy, D&C, or any complete testing
+pathway. The four corresponding source-level rows are in
+`evidence/expanded_screening_extraction_20261109.csv`.
+
+Sources:
+- Frick AC et al. Risk of unanticipated abnormal gynecologic pathology at
+  the time of hysterectomy for uterovaginal prolapse. *AJOG*. 2010.
+  https://pubmed.ncbi.nlm.nih.gov/20452498/
+- ICS original conference abstract (subgroup breakdown):
+  https://www.ics.org/Abstracts/Publish/47/000540.pdf
