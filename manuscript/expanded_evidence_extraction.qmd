@@ -208,3 +208,45 @@ testing ultrasound-triggered risk triage as a *scenario* but do not
 calibrate the elevated-risk group's absolute prevalence. The
 screening policy model remains uncalibrated; no procedure-specific
 screening recommendation or causal benefit should be inferred.
+
+## 2026 additional cohort: occult cancer despite preoperative evaluation
+
+Li and colleagues analyzed **3,588 hysterectomies during pelvic organ
+prolapse repair** at a Chinese tertiary center. **Eleven** patients
+(11/3,588, **0.31%**) had unexpected endometrial malignancy without
+preoperative symptoms or suspicious ancillary findings. Ten were
+endometrioid and one was serous carcinoma. **Seven of eleven (63.6%)**
+underwent a second staging operation. The 0.31% pertains to residual
+unexpected disease *after the institution's assessment practices*, not
+occult cancer prevalence in an unscreened population.
+https://gocm-frontend.bmj.com/content/6/2/e000221
+
+The authors propose elevated BMI and metabolic comorbidities to identify
+candidates for biopsy or hysteroscopy. Because the paper characterizes the
+**eleven cancer cases** rather than applying the rule to every woman
+without cancer, the source does **not** supply specificity, the fraction
+screened, positive predictive value or stratum-specific absolute risks.
+The paper's proposed rule and stated case capture should be verified
+against the supplementary case table before using it even as a scenario.
+The BMI cutoffs are defined using Chinese criteria and require local
+transport validation.
+
+The 7/11 staging estimate is another **conditional** rate, independent of
+a US cohort with 10/30 staging. Their different case mixes and treatment
+settings prohibit casual pooling without a prespecified heterogeneity
+analysis.
+
+## 2026 concurrent carcinoma in diagnosed atypical hyperplasia
+
+A separate retrospective study of **101 women with preoperatively
+diagnosed atypical endometrial hyperplasia (AEH)** found **37 (36.6%)**
+with coexisting carcinoma on hysterectomy pathology. This is relevant
+*after a positive biopsy* for counseling and management, but cannot be
+used as EIN prevalence in unselected prolapse patients or as a screening
+test sensitivity.
+https://pubmed.ncbi.nlm.nih.gov/41611996/
+
+**Research priority:** Extract full denominators for a candidate risk
+rule among both cancer and non-cancer prolapse patients. Without them,
+the risk-stratified model's tested fraction, specificity, and prevalence
+remain uncalibrated.
