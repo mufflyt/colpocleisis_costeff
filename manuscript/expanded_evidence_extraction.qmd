@@ -171,3 +171,40 @@ in each subgroup. No published risk model of **future incident** cancer
 should be used as a proxy for prevalent occult pathology at surgery.
 Separately estimate benign subsequent hysterectomy, pathological
 surveillance/treatment, and cancer-specific management after hysteropexy.
+
+## Additional evidence search: occult findings and risk triage
+
+- A vaginal-hysterectomy-for-POP cohort reported **0.35%**
+  significant endometrial pathology among *asymptomatic postmenopausal*
+  patients despite an unremarkable preoperative workup. This is
+  the residual pathology after a particular workup, not the untested
+  disease prevalence or a validated screening false-negative rate.
+  Full-text subgroup counts and workup definitions remain necessary.
+  https://pubmed.ncbi.nlm.nih.gov/29103241/
+- Among 569 vaginal hysterectomies with pelvic floor repair, **2/569**
+  had unexpected endometrial cancer and **6/569** had unexpected
+  premalignant uterine pathology. Abnormal endometrial findings on
+  preoperative ultrasound were associated with unexpected malignancy
+  (reported OR **4.63**, 95% CI **1.84–51.4**); age, BMI and POP-Q
+  stage were not significantly associated. Because there were only
+  two cancers, the association is highly uncertain and the endpoint
+  requires full-text verification. It cannot be used directly as a
+  two-stratum prevalence ratio.
+  https://pubmed.ncbi.nlm.nih.gov/37401960/
+- A 2010 prolapse study reported **2.6%** unanticipated uterine
+  pathology among postmenopausal women without bleeding, but this
+  encompassed premalignant and other pathology, not EIN or cancer
+  alone. Full-text subgroup counts are needed.
+  https://pubmed.ncbi.nlm.nih.gov/20452498/
+- A Belgian 2024 conference abstract reports **19/235** lesions after
+  sacrocolpopexy and hysterectomy. It appears to overlap the later
+  Belgian 226-patient SCH/SCP report in institution and recruitment
+  period. **Do not count it as an independent cohort** in prevalence
+  meta-analysis until investigators confirm whether cohorts overlap.
+  https://www.esgecongress.eu/files/inhalt/esge-2024/downloads/OFFICIAL_ABSTRACT_PUBLICATION_2024_v2.pdf
+
+**Current interpretation:** These studies strengthen the rationale for
+testing ultrasound-triggered risk triage as a *scenario* but do not
+calibrate the elevated-risk group's absolute prevalence. The
+screening policy model remains uncalibrated; no procedure-specific
+screening recommendation or causal benefit should be inferred.
