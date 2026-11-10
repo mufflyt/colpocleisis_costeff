@@ -1,0 +1,84 @@
+---
+title: "International guidance on endometrial assessment before prolapse surgery"
+format: docx
+execute:
+  echo: false
+---
+
+**Question:** In asymptomatic postmenopausal women undergoing uterovaginal
+prolapse surgery, is preoperative ultrasound and/or endometrial biopsy
+required before hysteropexy, supracervical hysterectomy, or hysterectomy?
+
+This table distinguishes **prolapse-surgery recommendations** from
+**asymptomatic incidental-thickening recommendations** and **symptomatic
+postmenopausal-bleeding recommendations**. These groups must not be treated
+as interchangeable.
+
+```{r}
+#| label: tbl-international-guidelines
+#| tbl-cap: "International guidance relevant to endometrial assessment before prolapse surgery, as of November 2026."
+
+guidance_rows <- tibble::tribble(
+  ~Society, ~Year, ~Scope, ~Recommendation, ~Implication,
+  "SOGC (Canada)", "2024", "Asymptomatic endometrial thickening",
+  "Selectively evaluate; <11 mm without bleeding is rarely serious and should not automatically trigger biopsy.",
+  "Supports selective rather than universal testing; not a pre-hysteropexy recommendation.",
+  "ISUOG (international)", "2026", "Sonographic assessment of endometrium",
+  "No routine endometrial ultrasound screening in asymptomatic, low-risk postmenopausal women; investigate concerning morphology and risk context.",
+  "No-ultrasound comparator for low-risk asymptomatic women; not automatically applicable before organ-retaining surgery.",
+  "DGGG/SGGG/OEGGG (Germany/Switzerland/Austria)", "2016", "Prolapse surgery",
+  "Vaginal ultrasound can exclude uterine pathology before uterus-preserving surgery; offer preservation if no clinical or sonographic pathology.",
+  "May support an ultrasound-assessment pathway, not a universal biopsy mandate.",
+  "NICE (UK)", "2019", "Prolapse surgery",
+  "Discuss hysterectomy and uterus-preserving operations; reviewed recommendations do not mandate routine sampling.",
+  "Guideline silence does not prove sampling is unnecessary.",
+  "U-POP international expert consortium", "2026", "Primary uterovaginal prolapse",
+  "Avoid uterine-sparing surgery with abnormal preoperative endometrial histology or contraindicating genetic syndrome; avoid cervical preservation if malignancy suspected.",
+  "Eligibility after abnormal findings, not evidence that everyone should be sampled.",
+  "Indian Menopause Society", "2026", "Asymptomatic postmenopausal endometrium",
+  "No invasive evaluation for uniform thickness <=11 mm and no other risk factors; >11 mm favors biopsy; between thresholds use morphology/risk.",
+  "Threshold-scenario comparator; not a procedure-specific mandate.",
+  "ACOG (USA)", "2026", "Postmenopausal bleeding",
+  "Initial TVUS plus sampling for most women with postmenopausal bleeding, selected exceptions.",
+  "Symptomatic women outside primary asymptomatic economic cohort."
+)
+
+knitr::kable(guidance_rows)
+```
+
+## Caveats relevant to the economic model
+
+1. Do not apply a 4-mm threshold derived from evaluation of bleeding
+   to screening an asymptomatic patient.
+2. Do not interpret guidance against *routine screening* as guidance
+   against evaluation when a specific symptom, abnormal ultrasound finding,
+   major risk factor, or cervical screening abnormality exists.
+3. An abnormal biopsy may contraindicate hysteropexy, but this does not
+   establish that a biopsy is required for every hysteropexy candidate.
+4. Reproduce differing guidelines as separate *testing policies* within
+   each operation: no additional test; selective ultrasound with conditional
+   biopsy; biopsy in high-risk patients; universal biopsy as a counterfactual.
+5. Distinguish preoperative detection of **prevalent disease** from
+   future incident EIN/cancer after uterine preservation.
+6. Continue cervical assessment as a separate disease pathway for all
+   procedures, accounting for age and screening history.
+
+## Primary source URLs
+
+- SOGC Guideline 451 (2024): https://pubmed.ncbi.nlm.nih.gov/38901794/
+- ISUOG Consensus (2026): https://doi.org/10.1002/uog.70163
+- DGGG/SGGG/OEGGG prolapse guideline (2016):
+  https://pmc.ncbi.nlm.nih.gov/articles/PMC5193153/
+- NICE NG123 (2019): https://www.nice.org.uk/guidance/ng123/chapter/Recommendations
+- International U-POP consensus (2026):
+  https://doi.org/10.1007/s00192-026-06758-6
+- Indian Menopause Society guidance (2026):
+  https://pmc.ncbi.nlm.nih.gov/articles/PMC12948155/
+- ACOG updated PMB guidance (2026):
+  https://doi.org/10.1097/AOG.0000000000006275
+- International pathology evidence/consensus review (2026):
+  https://doi.org/10.1007/s00192-026-06849-4
+
+**Status:** Evidence synthesis, not an endorsed recommendation or
+calibrated CEA. Please verify complete society guideline text before
+quoting exact strength/grade of recommendation in a consensus manuscript.
