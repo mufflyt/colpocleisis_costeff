@@ -66,8 +66,8 @@ base::stopifnot(base::all(
 base::message("Checking that registry loads do not fill model inputs.")
 base::source("R/shared_preop_screening_model.R")
 blank_inputs <- make_shared_preop_screening_inputs()
-base::stopifnot(base::allNA(blank_inputs$prevalence))
-base::stopifnot(base::allNA(
+base::stopifnot(base::all(base::is.na(blank_inputs$prevalence)))
+base::stopifnot(base::all(base::is.na(
   blank_inputs$procedures$post_detection_prob
-))
+)))
 base::message("All registry evidence smoke tests passed.")
