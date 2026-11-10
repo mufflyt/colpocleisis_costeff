@@ -56,7 +56,7 @@ source_rows |>
   reported denominator.
 - The 10/30 second-staging estimate is conditional on incidental endometrial
   cancer. Do not apply it to the general prolapse population.
-- A 38% complication estimate among selected *inpatient* stump excisions does
+- A 38% complication estimate among selected *inpatient* trachelectomies after SCH does
   not estimate the probability of complications after SCH itself.
 - Future cervix surveillance needs screening eligibility, prior CIN2+/AIS,
   age, and time horizon; screening is not automatically lifelong.
@@ -73,7 +73,7 @@ Current evidence can justify broad sensitivity distributions for occult
 endometrial cancer and can inform conditional second-staging probabilities
 following unexpected cancer. It is not sufficient to estimate the effect of
 routine testing on cancer mortality, the absolute post-hysteropexy diagnostic
-delay, or the absolute probability of cervical-stump excision after SCH.
+delay, or the absolute probability of trachelectomy after SCH.
 Those missing quantities should remain explicit scenario parameters.
 
 The source URLs and study-specific limitations are retained in the linked CSV
