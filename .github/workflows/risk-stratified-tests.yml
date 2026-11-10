@@ -1,0 +1,32 @@
+name: Risk-stratified model structural tests
+
+on:
+  pull_request:
+    paths:
+      - "R/**"
+      - "tests/**"
+      - ".github/workflows/risk-stratified-tests.yml"
+  push:
+    branches: [master]
+    paths:
+      - "R/**"
+      - "tests/**"
+      - ".github/workflows/risk-stratified-tests.yml"
+
+jobs:
+  test-stratified:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: "release"
+          use-public-rspm: true
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          packages: |
+            any::dplyr
+            any::tidyr
+            any::tibble
+      - name: Test risk-stratified policies
+        run: Rscript tests/test_risk_stratified_screening_model.R
