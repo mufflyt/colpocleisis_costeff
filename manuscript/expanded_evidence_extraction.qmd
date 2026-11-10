@@ -129,3 +129,45 @@ an SCH already performed, not planned surgery for known EIN.
 7. ACOG Clinical Consensus No. 5. Management of Endometrial
    Intraepithelial Neoplasia or Atypical Endometrial Hyperplasia. 2023.
    https://www.acog.org/clinical/clinical-guidance/clinical-consensus/articles/2023/09/management-of-endometrial-intraepithelial-neoplasia-or-atypical-endometrial-hyperplasia
+
+
+## Newly extracted hysteropexy follow-up evidence
+
+Two cohorts give direct, but incomplete, evidence for the consequences of
+uterus preservation:
+
+- Kurian et al. (2021) identified **0 confirmed subsequent primary uterine
+  or cervical cancers among 755 hysteropexy patients** in an EHR cohort,
+  with median follow-up of **1,480 days**. The largest reported 95% CI upper
+  bound was **0.61%**. Cases of malignancy known at index surgery were
+  excluded. This is neither an occult-pathology prevalence estimate nor
+  evidence of no lifetime risk. Source:
+  https://pubmed.ncbi.nlm.nih.gov/33620910/
+- A multicenter cohort included **147 sacrospinous and 114 uterosacral
+  hysteropexies**. With median follow-up of **17 months**, **4.6%** underwent
+  subsequent hysterectomy and **6.5%** received treatment for uterine or
+  cervical pathology. Only **83/261 (32%)** had one-year follow-up. The
+  percentages are **not** rates of subsequent cancer, nor probabilities of
+  hysterectomy preventable by preoperative screening. Source:
+  https://pubmed.ncbi.nlm.nih.gov/36516026/
+
+## New risk-factor evidence specific to SCH and SCP
+
+In the 2026 SCH/SCP cohort, all 15 patients with unexpected atypia/cancer
+were postmenopausal; mean age was 66.3 versus 59.1 years (p=0.03).
+Tamoxifen exposure was reported in 13.3% versus 1.9% (p=0.05), and
+hypertension in 53.3% versus 23.7% (p=0.017), comparing lesion to
+nonlesion groups. These **unadjusted, sparse associations** do not define
+a validated risk score and should not be converted into independent
+multiplicative risk ratios. Source:
+https://pmc.ncbi.nlm.nih.gov/articles/PMC12907406/
+
+### Consequence for calibration
+
+The **risk-stratified model must remain uncalibrated** until investigators
+can estimate disease prevalence within explicitly defined average-risk and
+elevated-risk subgroups, and the fraction of the target population falling
+in each subgroup. No published risk model of **future incident** cancer
+should be used as a proxy for prevalent occult pathology at surgery.
+Separately estimate benign subsequent hysterectomy, pathological
+surveillance/treatment, and cancer-specific management after hysteropexy.
