@@ -1,0 +1,80 @@
+---
+title: "Expanded evidence extraction: preoperative pathology evaluation in prolapse"
+format:
+  docx:
+    toc: true
+execute:
+  echo: false
+---
+
+This extraction supports preliminary model calibration; it is not a
+procedure-specific comparative effectiveness estimate. The target population
+is asymptomatic postmenopausal women with stage III uterovaginal prolapse.
+Published mixed-population studies are labeled as indirect.
+
+```{r}
+#| label: tbl-expanded-evidence
+#| tbl-cap: "Source-level evidence, including numerator/denominator and applicability"
+source_rows <- readr::read_csv(
+  "evidence/expanded_screening_extraction_20261109.csv",
+  show_col_types = FALSE
+)
+display_rows <- source_rows |>
+  dplyr::filter(evidence_class != "missing") |>
+  dplyr::mutate(
+    Count = dplyr::if_else(
+      !is.na(numerator) & !is.na(denominator),
+      paste0(numerator, "/", denominator),
+      "—"
+    )
+  ) |>
+  dplyr::select(
+    procedure_group, parameter, Count, published_estimate,
+    evidence_class, limitations
+  )
+knitr::kable(display_rows)
+```
+
+## Highest-priority unobserved parameters
+
+```{r}
+#| label: tbl-critical-gaps
+#| tbl-cap: "Missing inputs for decision modeling"
+source_rows |>
+  dplyr::filter(evidence_class == "missing") |>
+  dplyr::select(procedure_group, parameter, limitations) |>
+  knitr::kable()
+```
+
+## Rules for using these data
+
+- Use 1/317 for the observed EIN proportion in the asymptomatic
+  postmenopausal cohort; do not substitute the 2/106 rate of *combined*
+  premalignant/malignant pathology *among patients with polyps*.
+- The 8/462 complex atypical hyperplasia estimate comes from a broader POP
+  hysterectomy series and is not restricted to postmenopausal patients in the
+  reported denominator.
+- The 10/30 second-staging estimate is conditional on incidental endometrial
+  cancer. Do not apply it to the general prolapse population.
+- A 38% complication estimate among selected *inpatient* stump excisions does
+  not estimate the probability of complications after SCH itself.
+- Future cervix surveillance needs screening eligibility, prior CIN2+/AIS,
+  age, and time horizon; screening is not automatically lifelong.
+- Keep incident cancer after hysteropexy separate from occult cancer present
+  at the index operation; the current model only represents prevalent disease.
+- Test performance borrowed from patients with postmenopausal bleeding
+  should be sensitivity analyses until validated for asymptomatic patients.
+- Do not infer the causal value of earlier detection from survival comparisons
+  of patients whose cancer was found before versus after prolapse surgery.
+
+## Interpretation
+
+Current evidence can justify broad sensitivity distributions for occult
+endometrial cancer and can inform conditional second-staging probabilities
+following unexpected cancer. It is not sufficient to estimate the effect of
+routine testing on cancer mortality, the absolute post-hysteropexy diagnostic
+delay, or the absolute probability of cervical-stump excision after SCH.
+Those missing quantities should remain explicit scenario parameters.
+
+The source URLs and study-specific limitations are retained in the linked CSV
+for audit and future manuscript references.
