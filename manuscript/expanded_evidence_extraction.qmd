@@ -286,3 +286,69 @@ Sources:
   https://pubmed.ncbi.nlm.nih.gov/20452498/
 - ICS original conference abstract (subgroup breakdown):
   https://www.ics.org/Abstracts/Publish/47/000540.pdf
+
+## Screening test performance: focused update
+
+**Population hierarchy:** (1) asymptomatic postmenopausal women with
+prolapse, (2) asymptomatic postmenopausal women generally, (3) mixed
+gynecologic indications, (4) symptomatic postmenopausal bleeding.
+Categories (2) to (4) are indirect for the primary decision model.
+
+| Test and population | Disease endpoint | Sensitivity | Specificity |
+| --- | --- | ---: | ---: |
+| TVUS at 5 mm, asymptomatic (2012 review) | Endometrial cancer | 83% (95% CI 19–100%) | 72% (95% CI 23–95%) |
+| TVUS at 6 mm, asymptomatic (2012 review) | Endometrial cancer | 33% (95% CI 4–85%) | 94% (95% CI 92–96%) |
+| TVUS 3.0–5.9 mm, asymptomatic (2026 review) | Combined AEH/EC | 79% (95% CI 36–86%) | 71% (95% CI 59–81%) |
+| TVUS ≥14 mm, asymptomatic (2026 review) | Combined AEH/EC | 23% (95% CI 10–31%) | 89% (95% CI 74–99%) |
+| Pipelle, mixed clinical populations (2023 review) | Cancer | 77.4% (95% CI 56.5–90.0%) | 98.5% (95% CI 92.7–99.7%) |
+| D&C, mixed clinical populations (2023 review) | Cancer | 88.0% (95% CI 28.1–99.3%) | 98.4% (95% CI 95.6–99.5%) |
+| Office sampling, PMB with hysteroscopy reference (2016) | Cancer / atypia | 90% / 82% | 98–100% |
+
+**Adequacy:** A 2025 Kaiser Permanente study found **1,696/5,832
+(29.1%) insufficient office endometrial biopsies** in the subgroup
+classified postmenopausal (age ≥55). This is **neither a negative
+biopsy result nor a false-negative rate**. It requires its own branch
+for repeat office sampling, hysteroscopy-directed biopsy, or no further
+evaluation, conditional on clinical context.
+
+### Model implementation guardrails
+
+- Endometrial ultrasound thickness should use **cutoff-specific test
+  accuracy** rather than the 4-mm threshold validated primarily in
+  postmenopausal bleeding. Threshold-subgroup meta-analyses need not
+  behave as a single paired ROC curve because case mix and verification
+  vary across studies.
+- The 2012 meta-analysis estimates *cancer* while the 2026 meta-analysis
+  estimates *combined atypia or cancer*: neither provides separate
+  EIN-specific sensitivity for the model's pathology states.
+- A **complete TVUS → biopsy → repeat/hysteroscopy** strategy has
+  different sensitivity, follow-up frequency and cost from TVUS alone.
+  Do not enter isolated test sensitivity as the complete pathway.
+- The 29.1% insufficiency is an **office biopsy** estimate. The
+  current risk-stratified engine uses one generic inadequacy variable
+  per testing policy; for TVUS it must instead reflect the
+  probability of unmeasurable endometrium, not tissue insufficiency.
+- The 2016 PMB-only data, including 7% pathology among patients with
+  insufficient/failed sampling, do **not** estimate asymptomatic
+  endometrial pathology or screening performance.
+- Diagnostic studies may have **partial verification bias** when
+  patients with normal imaging do not undergo histology. Audit
+  verification and histologic reference standards before calibration.
+- The published reviews may reuse primary studies. Do **not** combine
+  their sensitivity/specificity estimates as independent observations.
+
+### Primary evidence
+
+- 2012 asymptomatic TVUS review: https://pubmed.ncbi.nlm.nih.gov/23001905/
+- 2026 asymptomatic threshold meta-analysis:
+  https://pubmed.ncbi.nlm.nih.gov/42835427/
+- 2023 Pipelle/D&C diagnostic meta-analysis:
+  https://bmjopen.bmj.com/content/13/6/e072124
+- 2025 insufficiency cohort:
+  https://pmc.ncbi.nlm.nih.gov/articles/PMC12456534/
+- 2016 PMB biopsy accuracy review:
+  https://pubmed.ncbi.nlm.nih.gov/26748390/
+
+**Decision status:** The data support explicit threshold and adequacy
+*sensitivity analyses*, not calibrated screening-strategy rankings for
+asymptomatic stage III prolapse patients.
