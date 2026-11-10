@@ -15,14 +15,14 @@ evidence_rows <- tibble::tribble(
   "USLS hysteropexy", "Uterus + cervix", "Pooled malignancy 0.6%; NOT procedure-specific [1]", "Delayed EIN/EC; later hysterectomy", "Time to diagnosis and treatment",
   "SSLS hysteropexy", "Uterus + cervix", "Same mixed-population evidence [1]", "Delayed EIN/EC; later hysterectomy", "Time to diagnosis and treatment",
   "TLH + mesh SCP", "Neither", "Mixed POP hysterectomy cohort [2]", "Unexpected EC; possible staging", "Incremental staging time and cost",
-  "SCH + mesh SCP", "Cervix", "Dysplasia indication in 18.2% of 137 selected stump resections [3]", "Occult corpus pathology; possible cervical-stump surgery", "Absolute probability of stump excision",
+  "SCH + mesh SCP", "Cervix", "Dysplasia indication in 18.2% of 137 selected trachelectomies after SCH [3]", "Occult corpus pathology; possible trachelectomy", "Absolute probability of subsequent trachelectomy",
   "Mesh sacral hysteropexy", "Uterus + cervix", "Uterus-preserving subgroup 0.50% screened vs 0.58% unscreened malignancy [1]", "Delayed EIN/EC; later surgery with mesh", "Added complexity and costs of reoperation"
 )
 
 knitr::kable(evidence_rows)
 ```
 
-**Important qualifications.** Estimates are not surgery-specific transition probabilities. The pooled malignancy prevalence is not EIN prevalence. The stump-resection percentages are conditional on having stump surgery, not the risk after SCH. The screened-versus-unscreened finding does not establish screening efficacy. Patients with postmenopausal bleeding or guideline-indicated cervical evaluation are excluded from the asymptomatic primary comparison.
+**Important qualifications.** Estimates are not surgery-specific transition probabilities. The pooled malignancy prevalence is not EIN prevalence. The trachelectomy indication percentages are conditional on undergoing trachelectomy, not the risk after SCH. The screened-versus-unscreened finding does not establish screening efficacy. Patients with postmenopausal bleeding or guideline-indicated cervical evaluation are excluded from the asymptomatic primary comparison.
 
 ```{r}
 #| label: tbl-parameter-gaps
@@ -35,7 +35,7 @@ parameter_gaps <- tibble::tribble(
   "CIN2+/AIS/cervical cancer by age and prior screening", "Missing",
   "Second staging after occult EC on hysterectomy pathology", "10/30 (33.3%) in one cohort [2]",
   "Delayed cancer diagnosis after hysteropexy", "Missing",
-  "Probability of stump excision among all SCH recipients", "Missing",
+  "Probability of trachelectomy among all SCH recipients", "Missing",
   "Incremental operative duration, cost, QALY effects", "Missing",
   "Guideline-eligible future cervical screening for retained cervix", "Requires age/screening history"
 )
