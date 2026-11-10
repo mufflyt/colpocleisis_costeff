@@ -90,7 +90,7 @@ read_screening_evidence_registry <- function(
         .data$events == 0, 0,
         stats::qbeta(
           alpha / 2,
-          .data$events,
+          base::pmax(.data$events, 1),
           .data$denominator - .data$events + 1
         )
       ),
@@ -99,7 +99,7 @@ read_screening_evidence_registry <- function(
         stats::qbeta(
           1 - alpha / 2,
           .data$events + 1,
-          .data$denominator - .data$events
+          base::pmax(.data$denominator - .data$events, 1)
         )
       ),
       ci_method = "Clopper-Pearson exact binomial"
