@@ -52,3 +52,54 @@ knitr::kable(parameter_gaps)
 5. Gandelsman-Ginis J et al. Unexpected Pathology During Pelvic Organ Prolapse Repair in an Urban Population. 2025. https://pubmed.ncbi.nlm.nih.gov/39514181/
 
 **Supplementary quantitative extraction:** See `manuscript/expanded_evidence_extraction.qmd` and `evidence/expanded_screening_extraction_20261109.csv` for additional study-level values, including 4/192 subsequent trachelectomies in an indirect cohort and 25/30 guideline-concordant treatments after incidental endometrial cancer. The urban prolapse cohort abstract reports 2/299 events as 0.9%; the full-cohort arithmetic is 0.7%, so its denominator should be verified before use.
+
+
+## SCH with mesh sacrocolpopexy: unexpected endometrial pathology
+
+In a retrospective single-center series of 226 sacrocolpopexies with
+concomitant supracervical hysterectomy, histopathology identified atypical
+endometrial hyperplasia in 14/226 (6.2%) and endometrial carcinoma in 1/226
+(0.4%). All 15 patients had reportedly undergone preoperative pelvic
+ultrasound and cervical cytology without suspicious findings. These tests
+cannot be interpreted as validated endometrial screening with negative
+predictive value in asymptomatic women. The 6.2% atypia estimate is much
+higher than other prolapse cohorts; it is a heterogeneity signal and **not**
+a default EIN prevalence parameter. [6]
+
+### Management observed in the case series
+
+Two patients with focal atypia whose specimens underwent uncontained power
+morcellation received progestin therapy and clinical/ultrasound surveillance,
+without immediate reoperation. The 80-year-old patient with a stage I
+endometrial carcinoma underwent imaging assessment and surveillance instead
+of trachelectomy after individualized multidisciplinary evaluation. The
+article did not report immediate trachelectomy among these cases. No
+oncologic recurrence was reported over a mean 26-month follow-up among
+patients with endometrial lesions. This small, selected series and limited
+follow-up do **not** establish that surveillance is oncologically equivalent
+to completion surgery. [6]
+
+For decision modeling, unexpected atypia/cancer after SCH must branch into:
+(i) further assessment and surveillance, (ii) medical treatment and
+surveillance, and (iii) additional surgery when indicated, potentially
+including trachelectomy and oncologic staging. Assign no observed
+branch probabilities from this small series: the untreated and treated
+subgroups are not exchangeable, and the published description does not
+establish a complete management denominator for every branch. Trachelectomy
+is **not automatic** after unexpected endometrial pathology; equally, its
+absence in this series is **not** evidence that it is never appropriate.
+
+Known EIN/atypical endometrial hyperplasia should be managed according
+to established guidance: ACOG identifies total hysterectomy as definitive
+treatment, advises against supracervical hysterectomy as treatment for EIN,
+and recommends progestin with histologic surveillance when surgery is
+not an option. [7] The present study concerns *unexpected* pathology after
+an SCH already performed, not planned surgery for known EIN.
+
+6. Occult endometrial pathologies diagnosed after sacrocolpopexy with
+   concomitant supracervical hysterectomy for pelvic organ prolapse.
+   *Frontiers in Surgery*. 2026.
+   https://pmc.ncbi.nlm.nih.gov/articles/PMC12907406/
+7. ACOG Clinical Consensus No. 5. Management of Endometrial
+   Intraepithelial Neoplasia or Atypical Endometrial Hyperplasia. 2023.
+   https://www.acog.org/clinical/clinical-guidance/clinical-consensus/articles/2023/09/management-of-endometrial-intraepithelial-neoplasia-or-atypical-endometrial-hyperplasia
