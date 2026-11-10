@@ -6,6 +6,67 @@ It describes each input required by the shared screening model, evidence
 status, source population, applicable procedure or pathology, and the next
 adjudication step. **Blank numerical cells are intentionally unresolved.**
 
+## Research extraction update (November 2026)
+
+This repository now includes:
+- [`occult_pathology_study_counts.csv`](occult_pathology_study_counts.csv),
+  a source-level table of study numerators and denominators for
+  occult invasive cancer, EIN/atypical hyperplasia, and selected
+  *conditional* postoperative procedures.
+- [`R/evidence_registry.R`](../R/evidence_registry.R), which reads both
+  CSV files, validates the counts, and calculates study-level
+  Clopper-Pearson **exact binomial 95% confidence intervals**.
+- [`tests/test_evidence_registry.R`](../tests/test_evidence_registry.R),
+  which checks event totals, CI values, and that no clinical model
+  parameters are silently filled.
+
+The input registry currently records **provisional** pooled invasive
+endometrial-cancer prevalence 0.535% (95% CI 0.398%-0.718%),
+and EIN/atypical hyperplasia 1.35% (95% CI 0.36%-4.95%).
+These came from a preliminary research synthesis; the complete
+meta-analytic study-selection and fitting code has **not** been
+reproduced in this repository. They are not direct estimates for
+asymptomatic postmenopausal women with stage III uterovaginal prolapse.
+
+An EIN alternative prevalence of 0.70% (0.17%-2.82%) excludes the high
+SCH cohort as an **exploratory sensitivity scenario**, not as an
+automatic base case.
+
+The additional-staging pooled estimate of 62% (19%-92%) is likewise
+provisional and based on only 35 occult cancers across three cohorts.
+The directly observed 10/30 (33.3%; exact 95% CI 17.3%-52.8%)
+is separately preserved. Completion surgery after occult cancer in
+SCH is only 2/3 (66.7%; exact 95% CI 9.4%-99.2%) across two small
+series; this is too sparse for robust procedure-specific inference.
+
+Historical CMS nonfacility unit estimates of **$125.23 per TVUS**
+and **$172.55 per office endometrial biopsy** are recorded from
+https://pubmed.ncbi.nlm.nih.gov/36276784/.
+These are **unit prices, not all-in screening-pathway costs**,
+and must be reconciled to a common price year and diagnostic
+follow-up pathway.
+
+The $10,000/$20,000/$35,000 downstream cost entries are
+**scenario low/base/high bounds, not a confidence interval**.
+The `interval_kind` column distinguishes exact binomial 95% CIs,
+provisional pooled CIs, scenarios, and unavailable intervals.
+
+### R usage
+
+```r
+base::source("R/evidence_registry.R")
+evidence <- read_screening_evidence_registry()
+base::print(evidence$study_counts)
+scenarios <- get_provisional_prevalence_scenarios(evidence)
+base::print(scenarios)
+```
+
+Neither function runs the clinical CEA or changes the
+`NA` values in `make_shared_preop_screening_inputs()`.
+A formal synthesis should verify all denominators, overlapping
+cohorts, symptom definitions, staging indications, and publication
+status before updating the model.
+
 ## What was established
 
 - A surgical POP series reported 30 occult endometrial cancers in
