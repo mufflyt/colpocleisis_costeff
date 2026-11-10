@@ -1,0 +1,39 @@
+name: R screening model adversarial tests
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - "R/**"
+      - "tests/**"
+      - ".github/workflows/screening-model-tests.yml"
+  pull_request:
+    paths:
+      - "R/**"
+      - "tests/**"
+      - ".github/workflows/screening-model-tests.yml"
+  workflow_dispatch:
+
+jobs:
+  adversarial:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: '4.4.3'
+          use-public-rspm: true
+      - name: Install only required R packages
+        run: |
+          Rscript -e 'install.packages(c("dplyr", "tidyr", "tibble"))'
+      - name: Run original structural tests
+        run: |
+          Rscript -e 'base::source("tests/test_shared_preop_screening_model.R")'
+      - name: Verify sourced evidence registry and exact intervals
+        run: |
+          Rscript -e 'base::source("tests/test_evidence_registry.R")'
+      - name: Run all 20 saboteur tests
+        run: |
+          Rscript -e 'base::source("tests/test_20_saboteurs.R")'

@@ -1,0 +1,20 @@
+study_id,outcome,procedure_group,events,denominator,source,population,full_text_status,limitations
+ramm2016,invasive_ec,hysterectomy_POP,3,1196,https://pubmed.ncbi.nlm.nih.gov/27171317/,mixed_menopause,yes,EC count from POP hysterectomy; EIN subtype not separable
+manchana2023,invasive_ec,vaginal_hysterectomy_POP,3,530,https://pubmed.ncbi.nlm.nih.gov/37883921/,mixed_menopause,yes,Excluded known abnormal preoperative pathology
+manchana2023,ein_aeh,vaginal_hysterectomy_POP,1,530,https://pubmed.ncbi.nlm.nih.gov/37883921/,mixed_menopause,yes,Atypical hyperplasia
+ryu2023,invasive_ec,vaginal_hysterectomy_POP,2,569,https://pubmed.ncbi.nlm.nih.gov/37401960/,mixed_menopause,yes,Six premalignant lesions not assumed all EIN
+geron2024,invasive_ec,vaginal_hysterectomy_POP,3,462,https://pubmed.ncbi.nlm.nih.gov/38700374/,mixed_menopause,yes,All abnormal lesions in asymptomatic postmenopausal women
+geron2024,ein_aeh,vaginal_hysterectomy_POP,8,462,https://pubmed.ncbi.nlm.nih.gov/38700374/,mixed_menopause,yes,Complex atypical hyperplasia
+gruner2025,invasive_ec,hysterectomy_POP,30,5376,https://pmc.ncbi.nlm.nih.gov/articles/PMC12681478/,mixed_menopause,yes,None of unexpected EC cases had preoperative bleeding
+gruner2025,additional_staging_given_incidental_ec,hysterectomy_POP,10,30,https://pmc.ncbi.nlm.nih.gov/articles/PMC12681478/,known_incidental_ec,yes,Conditional on 30 women with incidental EC
+total_scp2026,invasive_ec,total_hysterectomy_SCP,2,196,https://pubmed.ncbi.nlm.nih.gov/42301313/,mixed_menopause,yes,Concomitant total hysterectomy with minimally invasive SCP
+total_scp2026,ein_aeh,total_hysterectomy_SCP,1,196,https://pubmed.ncbi.nlm.nih.gov/42301313/,mixed_menopause,yes,Separate premalignant histology
+sch_scp2026,invasive_ec,SCH_SCP,1,226,https://pmc.ncbi.nlm.nih.gov/articles/PMC12907406/,mixed_menopause,yes,Single occult EC managed without completion trachelectomy
+sch_scp2026,ein_aeh,SCH_SCP,14,226,https://pmc.ncbi.nlm.nih.gov/articles/PMC12907406/,mixed_menopause,yes,Unusually high 6.2 percent EIN requires extraction audit
+sch_scp2026,trachelectomy_given_incidental_ec,SCH_SCP,0,1,https://pmc.ncbi.nlm.nih.gov/articles/PMC12907406/,known_incidental_ec,yes,Single EC patient treated without trachelectomy
+sch_scp_abstract2024,invasive_ec,SCH_SCP,2,421,https://www.international-journal-of-gynecological-cancer.com/article/S1048-891X%2824%2921802-8/fulltext,mixed_menopause,abstract_only,Abstract provenance; verify study overlap
+sch_scp_abstract2024,ein_aeh,SCH_SCP,13,421,https://www.international-journal-of-gynecological-cancer.com/article/S1048-891X%2824%2921802-8/fulltext,mixed_menopause,abstract_only,Atypical hyperplasia on final specimen
+sch_scp_abstract2024,trachelectomy_given_incidental_ec,SCH_SCP,2,2,https://www.international-journal-of-gynecological-cancer.com/article/S1048-891X%2824%2921802-8/fulltext,known_incidental_ec,abstract_only,Both occult EC cases required trachelectomy and mesh removal
+manchana2023,additional_staging_given_incidental_ec,vaginal_hysterectomy_POP,3,3,https://pubmed.ncbi.nlm.nih.gov/37883921/,known_incidental_ec,yes,All three EC cases underwent completion surgical staging
+sch_scp_abstract2024,additional_staging_given_incidental_ec,SCH_SCP,2,2,https://www.international-journal-of-gynecological-cancer.com/article/S1048-891X%2824%2921802-8/fulltext,known_incidental_ec,abstract_only,Also contributed to retained cervix measure
+sch_combined,trachelectomy_given_incidental_ec,SCH_SCP,2,3,https://pmc.ncbi.nlm.nih.gov/articles/PMC12907406/,known_incidental_ec,derived_combination,Combined 0 of 1 and 2 of 2 from two small series; avoid double counting
