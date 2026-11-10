@@ -1,0 +1,49 @@
+---
+title: "Procedure-specific evidence for preoperative uterine and cervical evaluation"
+format: docx
+execute:
+  echo: false
+---
+
+```{r}
+#| label: tbl-procedure-evidence
+#| tbl-cap: "Published evidence and missing model inputs by intended prolapse procedure."
+
+evidence_rows <- tibble::tribble(
+  ~Procedure, ~Organs, ~Evidence, ~Postoperative_consequence, ~Evidence_gap,
+  "TVH + USLS", "Neither", "Occult EC 30/5,376 (0.56%) in mixed POP hysterectomy cohort [2]", "Unexpected EC; possible staging", "Route-specific staging probability and cost",
+  "USLS hysteropexy", "Uterus + cervix", "Pooled malignancy 0.6%; NOT procedure-specific [1]", "Delayed EIN/EC; later hysterectomy", "Time to diagnosis and treatment",
+  "SSLS hysteropexy", "Uterus + cervix", "Same mixed-population evidence [1]", "Delayed EIN/EC; later hysterectomy", "Time to diagnosis and treatment",
+  "TLH + mesh SCP", "Neither", "Mixed POP hysterectomy cohort [2]", "Unexpected EC; possible staging", "Incremental staging time and cost",
+  "SCH + mesh SCP", "Cervix", "Dysplasia indication in 18.2% of 137 selected stump resections [3]", "Occult corpus pathology; possible cervical-stump surgery", "Absolute probability of stump excision",
+  "Mesh sacral hysteropexy", "Uterus + cervix", "Uterus-preserving subgroup 0.50% screened vs 0.58% unscreened malignancy [1]", "Delayed EIN/EC; later surgery with mesh", "Added complexity and costs of reoperation"
+)
+
+knitr::kable(evidence_rows)
+```
+
+**Important qualifications.** Estimates are not surgery-specific transition probabilities. The pooled malignancy prevalence is not EIN prevalence. The stump-resection percentages are conditional on having stump surgery, not the risk after SCH. The screened-versus-unscreened finding does not establish screening efficacy. Patients with postmenopausal bleeding or guideline-indicated cervical evaluation are excluded from the asymptomatic primary comparison.
+
+```{r}
+#| label: tbl-parameter-gaps
+#| tbl-cap: "Cross-cutting parameters needing evidence review."
+
+parameter_gaps <- tibble::tribble(
+  ~Parameter, ~Status,
+  "EIN prevalence in asymptomatic postmenopausal prolapse patients", "Missing",
+  "Endometrial test sensitivity, specificity, and inadequate-sample rate", "Target-population estimates missing",
+  "CIN2+/AIS/cervical cancer by age and prior screening", "Missing",
+  "Second staging after occult EC on hysterectomy pathology", "10/30 (33.3%) in one cohort [2]",
+  "Delayed cancer diagnosis after hysteropexy", "Missing",
+  "Probability of stump excision among all SCH recipients", "Missing",
+  "Incremental operative duration, cost, QALY effects", "Missing",
+  "Guideline-eligible future cervical screening for retained cervix", "Requires age/screening history"
+)
+knitr::kable(parameter_gaps)
+```
+
+**Sources**
+
+1. Patient Risk Factors for Incidental Pathology After Uterovaginal Surgery for Apical Prolapse: Systematic Review and Global Expert Consensus Statements. 2026. https://pubmed.ncbi.nlm.nih.gov/42811185/
+2. Incidence and Outcomes of Occult Uterine Cancer in Uteri Removed for Prolapse. 2025. https://pmc.ncbi.nlm.nih.gov/articles/PMC12681478/
+3. Retrospective analysis of secondary resection of the cervical stump after subtotal hysterectomy: why and when? 2021. https://pmc.ncbi.nlm.nih.gov/articles/PMC8553675/
