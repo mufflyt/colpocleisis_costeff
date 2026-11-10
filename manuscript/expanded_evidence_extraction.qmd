@@ -1,0 +1,354 @@
+---
+title: "Expanded evidence extraction: preoperative pathology evaluation in prolapse"
+format:
+  docx:
+    toc: true
+execute:
+  echo: false
+---
+
+This extraction supports preliminary model calibration; it is not a
+procedure-specific comparative effectiveness estimate. The target population
+is asymptomatic postmenopausal women with stage III uterovaginal prolapse.
+Published mixed-population studies are labeled as indirect.
+
+```{r}
+#| label: tbl-expanded-evidence
+#| tbl-cap: "Source-level evidence, including numerator/denominator and applicability"
+source_rows <- readr::read_csv(
+  "evidence/expanded_screening_extraction_20261109.csv",
+  show_col_types = FALSE
+)
+display_rows <- source_rows |>
+  dplyr::filter(evidence_class != "missing") |>
+  dplyr::mutate(
+    Count = dplyr::if_else(
+      !is.na(numerator) & !is.na(denominator),
+      paste0(numerator, "/", denominator),
+      "—"
+    )
+  ) |>
+  dplyr::select(
+    procedure_group, parameter, Count, published_estimate,
+    evidence_class, limitations
+  )
+knitr::kable(display_rows)
+```
+
+## Highest-priority unobserved parameters
+
+```{r}
+#| label: tbl-critical-gaps
+#| tbl-cap: "Missing inputs for decision modeling"
+source_rows |>
+  dplyr::filter(evidence_class == "missing") |>
+  dplyr::select(procedure_group, parameter, limitations) |>
+  knitr::kable()
+```
+
+## Rules for using these data
+
+- Use 1/317 for the observed EIN proportion in the asymptomatic
+  postmenopausal cohort; do not substitute the 2/106 rate of *combined*
+  premalignant/malignant pathology *among patients with polyps*.
+- The 8/462 complex atypical hyperplasia estimate comes from a broader POP
+  hysterectomy series and is not restricted to postmenopausal patients in the
+  reported denominator.
+- The 10/30 second-staging estimate is conditional on incidental endometrial
+  cancer. Do not apply it to the general prolapse population.
+- A 38% complication estimate among selected *inpatient* trachelectomies after SCH does
+  not estimate the probability of complications after SCH itself.
+- Future cervix surveillance needs screening eligibility, prior CIN2+/AIS,
+  age, and time horizon; screening is not automatically lifelong.
+- Keep incident cancer after hysteropexy separate from occult cancer present
+  at the index operation; the current model only represents prevalent disease.
+- Test performance borrowed from patients with postmenopausal bleeding
+  should be sensitivity analyses until validated for asymptomatic patients.
+- Do not infer the causal value of earlier detection from survival comparisons
+  of patients whose cancer was found before versus after prolapse surgery.
+
+## Interpretation
+
+Current evidence can justify broad sensitivity distributions for occult
+endometrial cancer and can inform conditional second-staging probabilities
+following unexpected cancer. It is not sufficient to estimate the effect of
+routine testing on cancer mortality, the absolute post-hysteropexy diagnostic
+delay, or the absolute probability of trachelectomy after SCH.
+Those missing quantities should remain explicit scenario parameters.
+
+The source URLs and study-specific limitations are retained in the linked CSV
+for audit and future manuscript references.
+
+
+## SCH with mesh sacrocolpopexy: unexpected endometrial pathology
+
+In a retrospective single-center series of 226 sacrocolpopexies with
+concomitant supracervical hysterectomy, histopathology identified atypical
+endometrial hyperplasia in 14/226 (6.2%) and endometrial carcinoma in 1/226
+(0.4%). All 15 patients had reportedly undergone preoperative pelvic
+ultrasound and cervical cytology without suspicious findings. These tests
+cannot be interpreted as validated endometrial screening with negative
+predictive value in asymptomatic women. The 6.2% atypia estimate is much
+higher than other prolapse cohorts; it is a heterogeneity signal and **not**
+a default EIN prevalence parameter. [6]
+
+### Management observed in the case series
+
+Two patients with focal atypia whose specimens underwent uncontained power
+morcellation received progestin therapy and clinical/ultrasound surveillance,
+without immediate reoperation. The 80-year-old patient with a stage I
+endometrial carcinoma underwent imaging assessment and surveillance instead
+of trachelectomy after individualized multidisciplinary evaluation. The
+article did not report immediate trachelectomy among these cases. No
+oncologic recurrence was reported over a mean 26-month follow-up among
+patients with endometrial lesions. This small, selected series and limited
+follow-up do **not** establish that surveillance is oncologically equivalent
+to completion surgery. [6]
+
+For decision modeling, unexpected atypia/cancer after SCH must branch into:
+(i) further assessment and surveillance, (ii) medical treatment and
+surveillance, and (iii) additional surgery when indicated, potentially
+including trachelectomy and oncologic staging. Assign no observed
+branch probabilities from this small series: the untreated and treated
+subgroups are not exchangeable, and the published description does not
+establish a complete management denominator for every branch. Trachelectomy
+is **not automatic** after unexpected endometrial pathology; equally, its
+absence in this series is **not** evidence that it is never appropriate.
+
+Known EIN/atypical endometrial hyperplasia should be managed according
+to established guidance: ACOG identifies total hysterectomy as definitive
+treatment, advises against supracervical hysterectomy as treatment for EIN,
+and recommends progestin with histologic surveillance when surgery is
+not an option. [7] The present study concerns *unexpected* pathology after
+an SCH already performed, not planned surgery for known EIN.
+
+6. Occult endometrial pathologies diagnosed after sacrocolpopexy with
+   concomitant supracervical hysterectomy for pelvic organ prolapse.
+   *Frontiers in Surgery*. 2026.
+   https://pmc.ncbi.nlm.nih.gov/articles/PMC12907406/
+7. ACOG Clinical Consensus No. 5. Management of Endometrial
+   Intraepithelial Neoplasia or Atypical Endometrial Hyperplasia. 2023.
+   https://www.acog.org/clinical/clinical-guidance/clinical-consensus/articles/2023/09/management-of-endometrial-intraepithelial-neoplasia-or-atypical-endometrial-hyperplasia
+
+
+## Newly extracted hysteropexy follow-up evidence
+
+Two cohorts give direct, but incomplete, evidence for the consequences of
+uterus preservation:
+
+- Kurian et al. (2021) identified **0 confirmed subsequent primary uterine
+  or cervical cancers among 755 hysteropexy patients** in an EHR cohort,
+  with median follow-up of **1,480 days**. The largest reported 95% CI upper
+  bound was **0.61%**. Cases of malignancy known at index surgery were
+  excluded. This is neither an occult-pathology prevalence estimate nor
+  evidence of no lifetime risk. Source:
+  https://pubmed.ncbi.nlm.nih.gov/33620910/
+- A multicenter cohort included **147 sacrospinous and 114 uterosacral
+  hysteropexies**. With median follow-up of **17 months**, **4.6%** underwent
+  subsequent hysterectomy and **6.5%** received treatment for uterine or
+  cervical pathology. Only **83/261 (32%)** had one-year follow-up. The
+  percentages are **not** rates of subsequent cancer, nor probabilities of
+  hysterectomy preventable by preoperative screening. Source:
+  https://pubmed.ncbi.nlm.nih.gov/36516026/
+
+## New risk-factor evidence specific to SCH and SCP
+
+In the 2026 SCH/SCP cohort, all 15 patients with unexpected atypia/cancer
+were postmenopausal; mean age was 66.3 versus 59.1 years (p=0.03).
+Tamoxifen exposure was reported in 13.3% versus 1.9% (p=0.05), and
+hypertension in 53.3% versus 23.7% (p=0.017), comparing lesion to
+nonlesion groups. These **unadjusted, sparse associations** do not define
+a validated risk score and should not be converted into independent
+multiplicative risk ratios. Source:
+https://pmc.ncbi.nlm.nih.gov/articles/PMC12907406/
+
+### Consequence for calibration
+
+The **risk-stratified model must remain uncalibrated** until investigators
+can estimate disease prevalence within explicitly defined average-risk and
+elevated-risk subgroups, and the fraction of the target population falling
+in each subgroup. No published risk model of **future incident** cancer
+should be used as a proxy for prevalent occult pathology at surgery.
+Separately estimate benign subsequent hysterectomy, pathological
+surveillance/treatment, and cancer-specific management after hysteropexy.
+
+## Additional evidence search: occult findings and risk triage
+
+- A vaginal-hysterectomy-for-POP cohort reported **0.35%**
+  significant endometrial pathology among *asymptomatic postmenopausal*
+  patients despite an unremarkable preoperative workup. This is
+  the residual pathology after a particular workup, not the untested
+  disease prevalence or a validated screening false-negative rate.
+  Full-text subgroup counts and workup definitions remain necessary.
+  https://pubmed.ncbi.nlm.nih.gov/29103241/
+- Among 569 vaginal hysterectomies with pelvic floor repair, **2/569**
+  had unexpected endometrial cancer and **6/569** had unexpected
+  premalignant uterine pathology. Abnormal endometrial findings on
+  preoperative ultrasound were associated with unexpected malignancy
+  (reported OR **4.63**, 95% CI **1.84–51.4**); age, BMI and POP-Q
+  stage were not significantly associated. Because there were only
+  two cancers, the association is highly uncertain and the endpoint
+  requires full-text verification. It cannot be used directly as a
+  two-stratum prevalence ratio.
+  https://pubmed.ncbi.nlm.nih.gov/37401960/
+- A 2010 prolapse study reported **2.6%** unanticipated uterine
+  pathology among postmenopausal women without bleeding, but this
+  encompassed premalignant and other pathology, not EIN or cancer
+  alone. Full-text subgroup counts are needed.
+  https://pubmed.ncbi.nlm.nih.gov/20452498/
+- A Belgian 2024 conference abstract reports **19/235** lesions after
+  sacrocolpopexy and hysterectomy. It appears to overlap the later
+  Belgian 226-patient SCH/SCP report in institution and recruitment
+  period. **Do not count it as an independent cohort** in prevalence
+  meta-analysis until investigators confirm whether cohorts overlap.
+  https://www.esgecongress.eu/files/inhalt/esge-2024/downloads/OFFICIAL_ABSTRACT_PUBLICATION_2024_v2.pdf
+
+**Current interpretation:** These studies strengthen the rationale for
+testing ultrasound-triggered risk triage as a *scenario* but do not
+calibrate the elevated-risk group's absolute prevalence. The
+screening policy model remains uncalibrated; no procedure-specific
+screening recommendation or causal benefit should be inferred.
+
+## 2026 additional cohort: occult cancer despite preoperative evaluation
+
+Li and colleagues analyzed **3,588 hysterectomies during pelvic organ
+prolapse repair** at a Chinese tertiary center. **Eleven** patients
+(11/3,588, **0.31%**) had unexpected endometrial malignancy without
+preoperative symptoms or suspicious ancillary findings. Ten were
+endometrioid and one was serous carcinoma. **Seven of eleven (63.6%)**
+underwent a second staging operation. The 0.31% pertains to residual
+unexpected disease *after the institution's assessment practices*, not
+occult cancer prevalence in an unscreened population.
+https://gocm-frontend.bmj.com/content/6/2/e000221
+
+The authors propose elevated BMI and metabolic comorbidities to identify
+candidates for biopsy or hysteroscopy. Because the paper characterizes the
+**eleven cancer cases** rather than applying the rule to every woman
+without cancer, the source does **not** supply specificity, the fraction
+screened, positive predictive value or stratum-specific absolute risks.
+The paper's proposed rule and stated case capture should be verified
+against the supplementary case table before using it even as a scenario.
+The BMI cutoffs are defined using Chinese criteria and require local
+transport validation.
+
+The 7/11 staging estimate is another **conditional** rate, independent of
+a US cohort with 10/30 staging. Their different case mixes and treatment
+settings prohibit casual pooling without a prespecified heterogeneity
+analysis.
+
+## 2026 concurrent carcinoma in diagnosed atypical hyperplasia
+
+A separate retrospective study of **101 women with preoperatively
+diagnosed atypical endometrial hyperplasia (AEH)** found **37 (36.6%)**
+with coexisting carcinoma on hysterectomy pathology. This is relevant
+*after a positive biopsy* for counseling and management, but cannot be
+used as EIN prevalence in unselected prolapse patients or as a screening
+test sensitivity.
+https://pubmed.ncbi.nlm.nih.gov/41611996/
+
+**Research priority:** Extract full denominators for a candidate risk
+rule among both cancer and non-cancer prolapse patients. Without them,
+the risk-stratified model's tested fraction, specificity, and prevalence
+remain uncalibrated.
+
+## Frick et al. (2010): symptom-stratified unexpected pathology
+
+Frick and colleagues reported **17/644 (2.6%)** unexpected premalignant
+or malignant pathology findings after hysterectomy for uterovaginal
+prolapse. The conference abstract provides the important symptom-specific
+comparison:
+
+| Preoperative group | Unexpected pathology | Interpretation |
+| --- | --- | --- |
+| Postmenopausal, no reported bleeding | 11/421 (2.6%) | Pathology prevalence in the asymptomatic surgical cohort; the broad hyperplasia endpoint is **not** EIN prevalence |
+| Postmenopausal, bleeding with negative evaluation | 6/45 (13.3%) | Residual pathology after negative workup in a *symptomatic* group; exclude from primary asymptomatic calibration |
+
+Of the six patients with unexpected pathology in the second group,
+**five had undergone endometrial biopsy and one had undergone
+ultrasound**. These are case descriptions, not test-specific
+false-negative rates. The report does **not** establish a D&C miss rate;
+it does not provide verified test-specific denominators required to
+calculate biopsy sensitivity or specificity. The conference report
+identifies five hyperplasia diagnoses and one carcinoma among these
+six symptomatic women.
+
+**Model treatment:** Use the 11/421 asymptomatic row only as a historical
+broad-pathology sensitivity anchor, pending histology and workup
+adjudication. Keep 6/45 in a *separate symptomatic negative-workup
+scenario*, not the base case. Do not substitute 13.3% for the
+false-negative probability of biopsy, D&C, or any complete testing
+pathway. The four corresponding source-level rows are in
+`evidence/expanded_screening_extraction_20261109.csv`.
+
+Sources:
+- Frick AC et al. Risk of unanticipated abnormal gynecologic pathology at
+  the time of hysterectomy for uterovaginal prolapse. *AJOG*. 2010.
+  https://pubmed.ncbi.nlm.nih.gov/20452498/
+- ICS original conference abstract (subgroup breakdown):
+  https://www.ics.org/Abstracts/Publish/47/000540.pdf
+
+## Screening test performance: focused update
+
+**Population hierarchy:** (1) asymptomatic postmenopausal women with
+prolapse, (2) asymptomatic postmenopausal women generally, (3) mixed
+gynecologic indications, (4) symptomatic postmenopausal bleeding.
+Categories (2) to (4) are indirect for the primary decision model.
+
+| Test and population | Disease endpoint | Sensitivity | Specificity |
+| --- | --- | ---: | ---: |
+| TVUS at 5 mm, asymptomatic (2012 review) | Endometrial cancer | 83% (95% CI 19–100%) | 72% (95% CI 23–95%) |
+| TVUS at 6 mm, asymptomatic (2012 review) | Endometrial cancer | 33% (95% CI 4–85%) | 94% (95% CI 92–96%) |
+| TVUS 3.0–5.9 mm, asymptomatic (2026 review) | Combined AEH/EC | 79% (95% CI 36–86%) | 71% (95% CI 59–81%) |
+| TVUS ≥14 mm, asymptomatic (2026 review) | Combined AEH/EC | 23% (95% CI 10–31%) | 89% (95% CI 74–99%) |
+| Pipelle, mixed clinical populations (2023 review) | Cancer | 77.4% (95% CI 56.5–90.0%) | 98.5% (95% CI 92.7–99.7%) |
+| D&C, mixed clinical populations (2023 review) | Cancer | 88.0% (95% CI 28.1–99.3%) | 98.4% (95% CI 95.6–99.5%) |
+| Office sampling, PMB with hysteroscopy reference (2016) | Cancer / atypia | 90% / 82% | 98–100% |
+
+**Adequacy:** A 2025 Kaiser Permanente study found **1,696/5,832
+(29.1%) insufficient office endometrial biopsies** in the subgroup
+classified postmenopausal (age ≥55). This is **neither a negative
+biopsy result nor a false-negative rate**. It requires its own branch
+for repeat office sampling, hysteroscopy-directed biopsy, or no further
+evaluation, conditional on clinical context.
+
+### Model implementation guardrails
+
+- Endometrial ultrasound thickness should use **cutoff-specific test
+  accuracy** rather than the 4-mm threshold validated primarily in
+  postmenopausal bleeding. Threshold-subgroup meta-analyses need not
+  behave as a single paired ROC curve because case mix and verification
+  vary across studies.
+- The 2012 meta-analysis estimates *cancer* while the 2026 meta-analysis
+  estimates *combined atypia or cancer*: neither provides separate
+  EIN-specific sensitivity for the model's pathology states.
+- A **complete TVUS → biopsy → repeat/hysteroscopy** strategy has
+  different sensitivity, follow-up frequency and cost from TVUS alone.
+  Do not enter isolated test sensitivity as the complete pathway.
+- The 29.1% insufficiency is an **office biopsy** estimate. The
+  current risk-stratified engine uses one generic inadequacy variable
+  per testing policy; for TVUS it must instead reflect the
+  probability of unmeasurable endometrium, not tissue insufficiency.
+- The 2016 PMB-only data, including 7% pathology among patients with
+  insufficient/failed sampling, do **not** estimate asymptomatic
+  endometrial pathology or screening performance.
+- Diagnostic studies may have **partial verification bias** when
+  patients with normal imaging do not undergo histology. Audit
+  verification and histologic reference standards before calibration.
+- The published reviews may reuse primary studies. Do **not** combine
+  their sensitivity/specificity estimates as independent observations.
+
+### Primary evidence
+
+- 2012 asymptomatic TVUS review: https://pubmed.ncbi.nlm.nih.gov/23001905/
+- 2026 asymptomatic threshold meta-analysis:
+  https://pubmed.ncbi.nlm.nih.gov/42835427/
+- 2023 Pipelle/D&C diagnostic meta-analysis:
+  https://bmjopen.bmj.com/content/13/6/e072124
+- 2025 insufficiency cohort:
+  https://pmc.ncbi.nlm.nih.gov/articles/PMC12456534/
+- 2016 PMB biopsy accuracy review:
+  https://pubmed.ncbi.nlm.nih.gov/26748390/
+
+**Decision status:** The data support explicit threshold and adequacy
+*sensitivity analyses*, not calibrated screening-strategy rankings for
+asymptomatic stage III prolapse patients.
