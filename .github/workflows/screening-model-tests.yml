@@ -31,6 +31,9 @@ jobs:
       - name: Run original structural tests
         run: |
           Rscript -e 'base::source("tests/test_shared_preop_screening_model.R")'
+      - name: Verify sourced evidence registry and exact intervals
+        run: |
+          Rscript -e 'base::source("tests/test_evidence_registry.R")'
       - name: Run all 20 saboteur tests
         run: |
           Rscript -e 'base::source("tests/test_20_saboteurs.R")'
