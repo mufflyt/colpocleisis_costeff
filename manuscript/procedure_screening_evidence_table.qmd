@@ -15,7 +15,7 @@ evidence_rows <- tibble::tribble(
   "USLS hysteropexy", "Uterus + cervix", "Pooled malignancy 0.6%; NOT procedure-specific [1]", "Delayed EIN/EC; later hysterectomy", "Time to diagnosis and treatment",
   "SSLS hysteropexy", "Uterus + cervix", "Same mixed-population evidence [1]", "Delayed EIN/EC; later hysterectomy", "Time to diagnosis and treatment",
   "TLH + mesh SCP", "Neither", "Mixed POP hysterectomy cohort [2]", "Unexpected EC; possible staging", "Incremental staging time and cost",
-  "SCH + mesh SCP", "Cervix", "Dysplasia indication in 18.2% of 137 selected trachelectomies after SCH [3]", "Occult corpus pathology; possible trachelectomy", "Absolute probability of subsequent trachelectomy",
+  "SCH + mesh SCP", "Cervix", "Dysplasia indication in 18.2% of 137 selected trachelectomies after SCH [3]", "Occult corpus pathology; possible trachelectomy", "Trachelectomy 17/1,892 (0.9%) in younger SCH cohort [4]; extrapolation to postmenopausal POP uncertain",
   "Mesh sacral hysteropexy", "Uterus + cervix", "Uterus-preserving subgroup 0.50% screened vs 0.58% unscreened malignancy [1]", "Delayed EIN/EC; later surgery with mesh", "Added complexity and costs of reoperation"
 )
 
@@ -47,3 +47,8 @@ knitr::kable(parameter_gaps)
 1. Patient Risk Factors for Incidental Pathology After Uterovaginal Surgery for Apical Prolapse: Systematic Review and Global Expert Consensus Statements. 2026. https://pubmed.ncbi.nlm.nih.gov/42811185/
 2. Incidence and Outcomes of Occult Uterine Cancer in Uteri Removed for Prolapse. 2025. https://pmc.ncbi.nlm.nih.gov/articles/PMC12681478/
 3. Retrospective analysis of secondary resection of the cervical stump after subtotal hysterectomy: why and when? 2021. https://pmc.ncbi.nlm.nih.gov/articles/PMC8553675/
+
+4. Tsafrir Z et al. Risk factors for trachelectomy following supracervical hysterectomy. 2017. https://pubmed.ncbi.nlm.nih.gov/28107774/
+5. Gandelsman-Ginis J et al. Unexpected Pathology During Pelvic Organ Prolapse Repair in an Urban Population. 2025. https://pubmed.ncbi.nlm.nih.gov/39514181/
+
+**Supplementary quantitative extraction:** See `manuscript/expanded_evidence_extraction.qmd` and `evidence/expanded_screening_extraction_20261109.csv` for additional study-level values, including 4/192 subsequent trachelectomies in an indirect cohort and 25/30 guideline-concordant treatments after incidental endometrial cancer. The urban prolapse cohort abstract reports 2/299 events as 0.9%; the full-cohort arithmetic is 0.7%, so its denominator should be verified before use.
